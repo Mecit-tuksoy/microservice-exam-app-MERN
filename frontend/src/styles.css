@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+  }
+  
+  .header {
+    background-color: #007acc;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-right button {
+    margin-left: 10px;
+    padding: 5px 10px;
+  }
+  
+  .login-container, .home-container, .test-container, .results-container, .history-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .login-container form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
+  
+  .login-container form button {
+    padding: 8px 16px;
+  }
+  
+  .subjects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .subject-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    width: 180px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #fafafa;
+  }
+  
+  .question-card {
+    margin-bottom: 20px;
+  }
+  
+  .question-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .options label {
+    margin-right: 10px;
+  }
+  
+  .complete-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .complete-btn:hover {
+    background-color: #218838;
+  }
+  
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .history-table th, .history-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .history-table th {
+    background-color: #007acc;
+    color: white;
+  }
+  
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #555;
+  }
+  

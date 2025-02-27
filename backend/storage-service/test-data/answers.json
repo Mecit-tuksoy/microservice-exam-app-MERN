@@ -1,0 +1,20 @@
+[
+  {
+    "subject": "Elektrik",
+    "duration": 2,
+    "questions": {
+      "q1.png": 3,
+      "q2.png": 2,
+      "q3.png": 3
+    }
+  },
+  {
+    "subject": "Yönler",
+    "duration": 2,
+    "questions": {
+      "q1.png": 3,
+      "q2.png": 2,
+      "q3.png": 3
+    }
+  }
+]
