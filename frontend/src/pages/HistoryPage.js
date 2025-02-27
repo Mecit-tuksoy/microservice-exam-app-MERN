@@ -32,6 +32,9 @@ const HistoryPage = () => {
     <div className="history-container">
       <Header />
       <h2>Çözülen Testler</h2>
+      <button onClick={() => navigate("/")} className="back-home-btn">
+        Ana Sayfaya Dön
+      </button>
       {history.length === 0 ? (
         <p>Henüz test çözülmemiş.</p>
       ) : (
@@ -52,13 +55,17 @@ const HistoryPage = () => {
               <tr
                 key={item._id}
                 onClick={() => navigate(`/results/${item.testId}`)}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               >
                 <td>{item.subject}</td>
                 <td>{new Date(item.date).toLocaleString()}</td>
                 <td>{item.totalQuestions}</td>
-                <td>{item.correctAnswers}</td>
-                <td>{item.wrongAnswers}</td>
+                <td>
+                  <span className="correct">{item.correctAnswers}</span>
+                </td>
+                <td>
+                  <span className="wrong">{item.wrongAnswers}</span>
+                </td>
                 <td>{item.netScore}</td>
                 <td>{item.ranking} / {item.totalParticipants}</td>
               </tr>

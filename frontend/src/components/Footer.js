@@ -13,7 +13,10 @@ const Footer = () => {
         console.error("Visitor data alınamadı:", error);
       }
     };
+    
     fetchVisitors();
+    const interval = setInterval(fetchVisitors, 10000); // her 10 saniyede bir güncelle
+    return () => clearInterval(interval);
   }, []);
 
   return (

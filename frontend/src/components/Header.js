@@ -8,11 +8,12 @@ const Header = () => {
 
   return (
     <header className="header">
-      <h1>Microservis Test Uygulaması</h1>
+      <h1>Mecit Hoca ile Online Test</h1>
       <div className="header-right">
         <span>Hoş geldin, {user.username}</span>
-        <button onClick={() => navigate("/history")}>Çözülen Testler</button>
+        
         <button onClick={logout}>Çıkış Yap</button>
+        <button onClick={() => navigate("/history")}>Çözülen Testler</button>
       </div>
     </header>
   );

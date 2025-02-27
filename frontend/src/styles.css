@@ -19,7 +19,7 @@ body {
     padding: 5px 10px;
   }
   
-  .login-container, .home-container, .test-container, .results-container, .history-container {
+  .login-container, .home-container, .test-container, .results-container, .history-container, .register-container {
     max-width: 800px;
     margin: 20px auto;
     background-color: white;
@@ -101,3 +101,42 @@ body {
     color: #555;
   }
   
+  .header-title {
+    flex: 1;
+    text-align: center;
+  }
+
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .user-info button {
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #005fa3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .nav-buttons {
+    margin-top: 10px;
+  }
+
+  .nav-buttons button {
+    padding: 5px 10px;
+    background-color: #005fa3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
