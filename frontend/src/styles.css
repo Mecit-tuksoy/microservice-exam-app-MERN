@@ -140,3 +140,36 @@ body {
     border-radius: 4px;
     cursor: pointer;
   }
+
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .results-table th, .results-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .results-table th {
+    background-color: #007acc;
+    color: white;
+  }
+  
+  .results-table td {
+    font-size: 16px;
+  }
+  
+  .results-table td:nth-child(2) {
+    font-weight: bold;
+  }
+  
+  .results-table td[style*="lightgreen"] {
+    color: darkgreen;
+  }
+  
+  .results-table td[style*="salmon"] {
+    color: darkred;
+  }
