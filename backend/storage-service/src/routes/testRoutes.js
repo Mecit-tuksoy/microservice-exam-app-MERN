@@ -144,15 +144,18 @@ router.post('/validate/:subject', async (req, res) => {
     }
     
     // Sonuçları hesapla
+    const questionKeys = Object.keys(subjectData.questions);
     let correctCount = 0;
     let wrongCount = 0;
     let emptyCount = 0;
     const details = [];
     
-    for (const [questionId, userAnswer] of Object.entries(answers)) {
+    questionKeys.forEach(questionId => {
       const correctAnswer = subjectData.questions[questionId];
+      // Kullanıcı cevabını kontrol ediyoruz; eğer yoksa boş string alıyoruz.
+      const userAnswer = (answers[questionId] !== undefined) ? answers[questionId] : "";
       
-      if (userAnswer === null || userAnswer === undefined || userAnswer === '') {
+      if (userAnswer === "") {
         emptyCount++;
         details.push({ questionId, status: 'empty', userAnswer, correctAnswer });
       } else if (parseInt(userAnswer) === correctAnswer) {
@@ -162,14 +165,14 @@ router.post('/validate/:subject', async (req, res) => {
         wrongCount++;
         details.push({ questionId, status: 'wrong', userAnswer, correctAnswer });
       }
-    }
+    });
     
     // Net hesapla (3 yanlış 1 doğruyu götürür)
     const netScore = correctCount - (wrongCount / 3);
     
     res.json({
       subject,
-      totalQuestions: Object.keys(answers).length,
+      totalQuestions: questionKeys.length,
       correctCount,
       wrongCount,
       emptyCount,

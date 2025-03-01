@@ -16,15 +16,18 @@ const TestPage = () => {
   useEffect(() => {
     const startTest = async () => {
       try {
-        const response = await fetch(`http://localhost:3004/api/tests/start/${subject}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": token,
-            "user-id": user.id,
-            "username": user.username
+        const response = await fetch(
+          `http://localhost:3004/api/tests/start/${subject}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-auth-token": token,
+              "user-id": user.id,
+              username: user.username,
+            },
           }
-        });
+        );
         const data = await response.json();
         setTestData(data);
         setAnswers(data.answers || {});
@@ -40,7 +43,7 @@ const TestPage = () => {
   useEffect(() => {
     if (!remainingTime) return;
     const interval = setInterval(() => {
-      setRemainingTime(prev => {
+      setRemainingTime((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
           completeTest();
@@ -54,7 +57,7 @@ const TestPage = () => {
 
   const handleAnswerChange = async (questionId, value) => {
     // value: "1", "2", "3", "4" veya boş string için boş bırakma
-    setAnswers(prev => ({ ...prev, [questionId]: value }));
+    setAnswers((prev) => ({ ...prev, [questionId]: value }));
     try {
       await fetch(`http://localhost:3004/api/tests/answer/${testData.testId}`, {
         method: "POST",
@@ -62,9 +65,9 @@ const TestPage = () => {
           "Content-Type": "application/json",
           "x-auth-token": token,
           "user-id": user.id,
-          "username": user.username
+          username: user.username,
         },
-        body: JSON.stringify({ questionId, answer: value })
+        body: JSON.stringify({ questionId, answer: value }),
       });
     } catch (error) {
       console.error("Cevap kaydedilemedi:", error);
@@ -73,15 +76,18 @@ const TestPage = () => {
 
   const completeTest = async () => {
     try {
-      const response = await fetch(`http://localhost:3004/api/tests/complete/${testData.testId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-          "user-id": user.id,
-          "username": user.username
+      const response = await fetch(
+        `http://localhost:3004/api/tests/complete/${testData.testId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+            "user-id": user.id,
+            username: user.username,
+          },
         }
-      });
+      );
       const result = await response.json();
       navigate(`/results/${testData.testId}`, { state: result });
     } catch (error) {
@@ -105,7 +111,7 @@ const TestPage = () => {
               className="question-image"
             />
             <div className="options">
-              {['1','2','3','4'].map((option, index) => (
+              {["1", "2", "3", "4"].map((option, index) => (
                 <label key={option}>
                   <input
                     type="radio"
@@ -114,7 +120,7 @@ const TestPage = () => {
                     checked={answers[q.questionId] === option}
                     onChange={() => handleAnswerChange(q.questionId, option)}
                   />
-                  {['A', 'B', 'C', 'D'][index]}
+                  {["A", "B", "C", "D"][index]}
                 </label>
               ))}
               <button onClick={() => handleAnswerChange(q.questionId, "")}>
