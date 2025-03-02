@@ -161,8 +161,7 @@ router.post('/answer/:testId', authenticateToken, async (req, res) => {
     
     // Cevabı kaydet veya güncelle
     if (answer === null || answer === '') {
-      // Cevap boş bırakılmak isteniyorsa
-      test.answers.delete(questionId);
+      test.answers.set(questionId, "");
     } else {
       test.answers.set(questionId, answer);
     }

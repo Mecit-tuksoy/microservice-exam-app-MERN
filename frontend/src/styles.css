@@ -37,7 +37,19 @@ body {
   .login-container form button {
     padding: 8px 16px;
   }
+
+  .register-container form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
   
+  .register-container form button {
+    padding: 8px 16px;
+  }
+
+
   .subjects-list {
     display: flex;
     flex-wrap: wrap;

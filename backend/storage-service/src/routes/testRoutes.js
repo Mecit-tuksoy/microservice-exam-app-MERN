@@ -149,21 +149,24 @@ router.post('/validate/:subject', async (req, res) => {
     let wrongCount = 0;
     let emptyCount = 0;
     const details = [];
-    
-    questionKeys.forEach(questionId => {
+
+    questionKeys.forEach((questionId, index) => {
       const correctAnswer = subjectData.questions[questionId];
-      // Kullanıcı cevabını kontrol ediyoruz; eğer yoksa boş string alıyoruz.
-      const userAnswer = (answers[questionId] !== undefined) ? answers[questionId] : "";
-      
+      const userAnswer = answers[questionId] !== undefined ? answers[questionId] : "";
+    
+      details.push({
+        questionNo: index + 1,  
+        status: userAnswer === "" ? 'empty' : (parseInt(userAnswer) === correctAnswer ? 'correct' : 'wrong'),
+        userAnswer,
+        correctAnswer
+      });
+    
       if (userAnswer === "") {
         emptyCount++;
-        details.push({ questionId, status: 'empty', userAnswer, correctAnswer });
       } else if (parseInt(userAnswer) === correctAnswer) {
         correctCount++;
-        details.push({ questionId, status: 'correct', userAnswer, correctAnswer });
       } else {
         wrongCount++;
-        details.push({ questionId, status: 'wrong', userAnswer, correctAnswer });
       }
     });
     

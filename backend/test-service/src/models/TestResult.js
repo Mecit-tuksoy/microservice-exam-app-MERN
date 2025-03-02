@@ -1,4 +1,3 @@
-// test-service/src/models/TestResult.js
 const mongoose = require('mongoose');
 
 const testResultSchema = new mongoose.Schema({
@@ -11,16 +10,12 @@ const testResultSchema = new mongoose.Schema({
     required: true
   },
   testId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
   subject: {
     type: String,
     required: true
-  },
-  date: {
-    type: Date,
-    default: Date.now
   },
   duration: {
     type: Number,
@@ -47,15 +42,24 @@ const testResultSchema = new mongoose.Schema({
     required: true
   },
   rank: {
-    type: Number,
-    default: null
+    type: Number
   },
   totalParticipants: {
-    type: Number,
-    default: 0
+    type: Number
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  // Kullanıcının cevapları ve doğru cevaplar eklendi
+  userAnswers: {
+    type: Map,
+    of: String
+  },
+  correctAnswerMap: {
+    type: Map,
+    of: String
   }
 });
 
-const TestResult = mongoose.model('TestResult', testResultSchema);
-
-module.exports = TestResult;
+module.exports = mongoose.model('TestResult', testResultSchema);
