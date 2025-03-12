@@ -1,26 +1,14 @@
 // src/components/Home.js
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Home = () => {
-  const { currentUser, logout } = useAuth();
-  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   return (
-    <div className="container mt-5 position-relative">
-      {currentUser && (
-        <div className="position-absolute top-0 end-0 p-3">
-          <div className="d-flex gap-3 align-items-center">
-            <span>Hoş geldin, {currentUser.username}</span>
-            <button onClick={logout} className="btn btn-secondary">
-              Çıkış Yap
-            </button>
-          </div>
-        </div>
-      )}
-
-      <div className="jumbotron p-5 bg-light shadow-sm">
+    <div className="container mt-5">
+      <div className="jumbotron">
         <h1 className="display-4">Online Test Platformuna Hoş Geldiniz!</h1>
         <p className="lead">
           Bu platform, çeşitli konularda kendinizi test etmenize ve bilgilerinizi değerlendirmenize olanak tanır.
@@ -29,7 +17,7 @@ const Home = () => {
         <p>
           Farklı zorluk seviyelerinde ve çeşitli konularda testler çözerek bilgilerinizi ölçebilirsiniz. Detaylı sonuç analizleri ile hangi konularda daha fazla çalışmanız gerektiğini görebilirsiniz.
         </p>
-        {currentUser ? (
+        {isAuthenticated() ? (
           <Link to="/tests" className="btn btn-primary btn-lg">
             Testleri Görüntüle
           </Link>
@@ -47,7 +35,7 @@ const Home = () => {
 
       <div className="row mt-5">
         <div className="col-md-4">
-          <div className="card mb-4 shadow-sm">
+          <div className="card mb-4">
             <div className="card-body">
               <h5 className="card-title">Çeşitli Konular</h5>
               <p className="card-text">
@@ -57,7 +45,7 @@ const Home = () => {
           </div>
         </div>
         <div className="col-md-4">
-          <div className="card mb-4 shadow-sm">
+          <div className="card mb-4">
             <div className="card-body">
               <h5 className="card-title">Anında Sonuçlar</h5>
               <p className="card-text">
@@ -67,7 +55,7 @@ const Home = () => {
           </div>
         </div>
         <div className="col-md-4">
-          <div className="card mb-4 shadow-sm">
+          <div className="card mb-4">
             <div className="card-body">
               <h5 className="card-title">İlerleme Takibi</h5>
               <p className="card-text">

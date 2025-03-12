@@ -1,7 +1,7 @@
 [
   {
     "subject": "Elektrik",
-    "duration": 2,
+    "duration": 3,
     "questions": {
       "q1": 3,
       "q2": 2,
@@ -10,7 +10,7 @@
   },
   {
     "subject": "Yönler",
-    "duration": 2,
+    "duration": 3,
     "questions": {
       "q1": 3,
       "q2": 2,
