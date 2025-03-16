@@ -186,38 +186,4 @@ router.get("/rankings/:testId/:userId", async (req, res) => {
   }
 });
 
-// Bu endpoint önceki sürüm, yeni yazılanı yukarıda
-router.get("/ranking/:testId/:userId", async (req, res) => {
-  try {
-    const { testId, userId } = req.params;
-
-    // Test sonuçlarını netScore'a göre sıralı şekilde al
-    const results = await TestResult.find({ testId }).sort({ netScore: -1 });
-
-    if (!results.length) {
-      return res.status(404).json({ message: "Bu test için sonuç bulunamadı" });
-    }
-
-    // Kullanıcının sonucunu bul
-    const userIndex = results.findIndex((result) => result.userId === userId);
-
-    if (userIndex === -1) {
-      return res.status(404).json({
-        message: "Kullanıcı bu testi çözmemiş",
-        rank: null,
-        totalParticipants: results.length,
-        netScore: null,
-      });
-    }
-
-    res.json({
-      rank: userIndex + 1,
-      totalParticipants: results.length,
-      netScore: results[userIndex].netScore,
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Sunucu hatası", error: error.message });
-  }
-});
-
 module.exports = router;

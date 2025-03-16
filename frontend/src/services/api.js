@@ -1,12 +1,12 @@
 // src/services/api.js
-import axios from 'axios';
+import axios from "axios";
 
 // API URL'leri
 const API_URLS = {
-  AUTH: 'http://localhost:3001',
-  TEST: 'http://localhost:3004',
-  STORAGE: 'http://localhost:3003',
-  ANALYTICS: 'http://localhost:3002',
+  AUTH: "http://localhost:3001",
+  TEST: "http://localhost:3004",
+  STORAGE: "http://localhost:3003",
+  ANALYTICS: "http://localhost:3002",
 };
 
 // API isteklerini yapmak için axios instance'ları
@@ -14,20 +14,20 @@ const createAxiosInstance = (baseURL) => {
   const instance = axios.create({
     baseURL,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
   // Request interceptor - her istekte token eklemek için
   instance.interceptors.request.use(
     (config) => {
-      const token = localStorage.getItem('token');
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      
+      const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+
       if (token && user && user.id && user.username) {
-        config.headers['x-auth-token'] = token;
-        config.headers['user-id'] = user.id;
-        config.headers['username'] = user.username;
+        config.headers["x-auth-token"] = token;
+        config.headers["user-id"] = user.id;
+        config.headers["username"] = user.username;
       }
       return config;
     },
@@ -41,9 +41,9 @@ const createAxiosInstance = (baseURL) => {
     (response) => response,
     (error) => {
       if (error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = '/login';
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
       }
       return Promise.reject(error);
     }

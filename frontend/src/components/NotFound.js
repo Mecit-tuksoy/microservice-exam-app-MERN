@@ -1,16 +1,15 @@
-// src/components/NotFound.js
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
-    <div className="container mt-5 text-center">
+    <div className="container text-center py-5">
       <h1 className="display-1">404</h1>
       <h2 className="mb-4">Sayfa Bulunamadı</h2>
-      <p className="lead">
-        Aradığınız sayfa mevcut değil veya taşınmış olabilir.
+      <p className="lead mb-4">
+        Aradığınız sayfa bulunamadı veya taşınmış olabilir.
       </p>
-      <Link to="/" className="btn btn-primary mt-3">
+      <Link to="/" className="btn btn-primary">
         Ana Sayfaya Dön
       </Link>
     </div>
