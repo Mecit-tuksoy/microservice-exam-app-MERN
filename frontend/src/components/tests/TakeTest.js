@@ -231,27 +231,43 @@ const TakeTest = () => {
           )}
           <p className="card-text">{currentQuestion.text}</p>
 
-          <div className="mt-4 d-flex flex-wrap gap-3">
-            {["1", "2", "3", "4"].map((option, index) => (
-              <div className="form-check" key={index}>
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name={`question-${currentQuestion.questionId}`}
-                  id={`option-${index}`}
-                  value={option}
-                  checked={answers[currentQuestion.questionId] === option}
-                  onChange={() =>
-                    handleAnswerChange(currentQuestion.questionId, option)
-                  }
-                />
-                <label className="form-check-label" htmlFor={`option-${index}`}>
-                  {["A", "B", "C", "D"][index]}
-                </label>
+          {/* Şıklar - Ortalanmış Hali */}
+          <div className="mt-4 text-center">
+            <div className="d-flex justify-content-center mb-3">
+              <div className="d-flex gap-4">
+                {["1", "2", "3", "4"].map((option, index) => (
+                  <div
+                    key={index}
+                    className="text-center"
+                    style={{ margin: "0 15px" }}
+                  >
+                    <div
+                      className={`rounded-circle d-flex justify-content-center align-items-center border ${
+                        answers[currentQuestion.questionId] === option
+                          ? "bg-primary text-white"
+                          : ""
+                      }`}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        cursor: "pointer",
+                        margin: "0 auto",
+                      }}
+                      onClick={() =>
+                        handleAnswerChange(currentQuestion.questionId, option)
+                      }
+                    >
+                      <span className="fw-bold">
+                        {["A", "B", "C", "D"][index]}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
             <button
-              className="btn btn-outline-danger"
+              className="btn btn-outline-danger mt-3"
               onClick={() => handleClearAnswer(currentQuestion.questionId)}
             >
               Temizle

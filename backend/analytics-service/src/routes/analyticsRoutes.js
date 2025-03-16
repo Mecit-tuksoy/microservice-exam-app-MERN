@@ -116,48 +116,64 @@ router.get("/rankings/:testId/:userId", async (req, res) => {
 
     console.log(`TestId: ${testId}, Subject: ${subject}, UserId: ${userId}`);
 
-    // Bu konuyu içeren tüm test sonuçlarını getir (tüm girişimleri)
-    const allTestResults = await TestResult.find({ subject });
-
-    console.log(
-      `${subject} konusu için toplam ${allTestResults.length} sonuç bulundu`
+    // Kullanıcının en son çözdüğü test sonucunu bul
+    const userLatestTest = await TestResult.findOne(
+      { userId, testId },
+      {},
+      { sort: { createdAt: -1 } }
     );
 
-    // Kullanıcının bu subject için en iyi sonucunu bul
-    const userTests = allTestResults.filter((test) => test.userId === userId);
-
-    if (userTests.length === 0) {
+    if (!userLatestTest) {
       return res.json({
         rank: null,
-        totalParticipants: allTestResults.length,
+        totalParticipants: 0,
         message: "Kullanıcı bu testi çözmemiş",
       });
     }
 
-    const userBestTest = userTests.reduce(
-      (best, current) => (current.netScore > best.netScore ? current : best),
-      userTests[0]
+    console.log(`Kullanıcının son test skoru: ${userLatestTest.netScore}`);
+
+    // Bu konuyu içeren tüm kullanıcıların en iyi sonuçlarını getir
+    // Önce tüm kullanıcıların ID'lerini al
+    const allUserIds = await TestResult.distinct("userId", { subject });
+
+    // Her kullanıcının en iyi sonucunu bul
+    let bestScores = [];
+    for (const uid of allUserIds) {
+      const bestResult = await TestResult.find({ subject, userId: uid })
+        .sort({ netScore: -1 })
+        .limit(1);
+
+      if (bestResult.length > 0) {
+        bestScores.push(bestResult[0]);
+      }
+    }
+
+    // Tüm en iyi sonuçları sırala
+    const sortedResults = bestScores.sort((a, b) => b.netScore - a.netScore);
+
+    // Kullanıcının son testinin, herkesin en iyi sonuçları arasındaki yerini bul
+    let rank = 0;
+    for (let i = 0; i < sortedResults.length; i++) {
+      if (userLatestTest.netScore >= sortedResults[i].netScore) {
+        rank = i + 1;
+        break;
+      }
+    }
+
+    // Eğer sıralama bulunmadıysa (kullanıcı en düşük skora sahipse)
+    if (rank === 0 && sortedResults.length > 0) {
+      rank = sortedResults.length + 1;
+    }
+
+    console.log(
+      `Kullanıcının son testinin sıralaması: ${rank} / ${sortedResults.length}`
     );
-
-    console.log(`Kullanıcının en iyi skoru: ${userBestTest.netScore}`);
-
-    // Tüm sonuçları netscore'a göre sırala (her kullanıcının her denemesi dahil)
-    const sortedResults = [...allTestResults].sort(
-      (a, b) => b.netScore - a.netScore
-    );
-
-    // Kullanıcının sıralamasını bul
-    const rank =
-      sortedResults.findIndex(
-        (result) => result._id.toString() === userBestTest._id.toString()
-      ) + 1;
-
-    console.log(`Kullanıcının sıralaması: ${rank} / ${allTestResults.length}`);
 
     res.json({
       rank,
-      totalParticipants: allTestResults.length,
-      netScore: userBestTest.netScore,
+      totalParticipants: sortedResults.length,
+      netScore: userLatestTest.netScore,
     });
   } catch (error) {
     console.error("Sıralama bilgisi getirme hatası:", error);

@@ -62,12 +62,16 @@ const TestResult = () => {
       const correctAnswerNum = result.correctAnswerMap[questionId];
       const userAnswerLetter = mapToLetter(userAnswerNum);
       const correctAnswerLetter = mapToLetter(correctAnswerNum);
-      const isCorrect = userAnswerNum === correctAnswerNum;
+      // Boş cevaplar için daha net bir kontrol
+      const isEmpty = userAnswerLetter === "-";
+      // Boş değilse ve cevaplar eşleşiyorsa doğru kabul et
+      const isCorrect = !isEmpty && userAnswerNum === correctAnswerNum;
       answers.push({
         questionNumber: index + 1,
         userAnswer: userAnswerLetter,
         correctAnswer: correctAnswerLetter,
         isCorrect,
+        isEmpty,
       });
     });
   }
@@ -115,6 +119,29 @@ const TestResult = () => {
             </div>
           </div>
 
+          {/* Cevap şıkları - direkt arayüzde gözüken tablo içine eklenmiş hali */}
+          <div className="text-center mb-4">
+            <h5>Cevap Şıkları</h5>
+            <div className="d-flex justify-content-center gap-4 mt-3">
+              {["A", "B", "C", "D"].map((letter, idx) => (
+                <div key={idx} className="text-center">
+                  <div
+                    className="border rounded-circle d-flex justify-content-center align-items-center"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      fontSize: "18px",
+                      fontWeight: "bold",
+                      margin: "0 auto",
+                    }}
+                  >
+                    {letter}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="accordion" id="answersAccordion">
             <div className="accordion-item">
               <h2 className="accordion-header" id="headingOne">
@@ -152,10 +179,14 @@ const TestResult = () => {
                           <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{answer.questionNumber}</td>
-                            <td>{answer.userAnswer}</td>
-                            <td>{answer.correctAnswer}</td>
+                            <td className="text-center">{answer.userAnswer}</td>
+                            <td className="text-center">
+                              {answer.correctAnswer}
+                            </td>
                             <td>
-                              {answer.isCorrect ? (
+                              {answer.isEmpty ? (
+                                <span className="badge bg-secondary">Boş</span>
+                              ) : answer.isCorrect ? (
                                 <span className="badge bg-success">Doğru</span>
                               ) : (
                                 <span className="badge bg-danger">Yanlış</span>
