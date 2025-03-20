@@ -135,6 +135,11 @@ const TakeTest = () => {
       .padStart(2, "0")}`;
   };
 
+  // Get image URL from service
+  const getImageUrl = (imageUrl) => {
+    return testService.getImageUrlPath(imageUrl);
+  };
+
   // Render logic
   if (loading) {
     return (
@@ -215,7 +220,7 @@ const TakeTest = () => {
           {currentQuestion.imageUrl && (
             <div className="text-center mb-4">
               <img
-                src={`http://localhost:3003${currentQuestion.imageUrl}`}
+                src={getImageUrl(currentQuestion.imageUrl)}
                 alt={`Soru ${currentQuestionIndex + 1}`}
                 className="img-fluid"
                 style={{ maxHeight: "300px" }}

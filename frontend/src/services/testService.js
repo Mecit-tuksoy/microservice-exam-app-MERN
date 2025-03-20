@@ -1,14 +1,14 @@
 // src/services/testService.js
-import { testApi, storageApi } from './api';
+import { testApi, storageApi } from "./api";
 
 export const testService = {
   getAllTests: async () => {
-    const response = await testApi.get('/api/tests/available');
+    const response = await testApi.get("/api/tests/available");
     return response.data;
   },
 
   getAvailableSubjects: async () => {
-    const response = await storageApi.get('/api/storage/subjects');
+    const response = await storageApi.get("/api/storage/subjects");
     return response.data;
   },
 
@@ -18,7 +18,9 @@ export const testService = {
   },
 
   validateSubjectAnswers: async (subject, answers) => {
-    const response = await storageApi.post(`/api/storage/validate/${subject}`, { answers });
+    const response = await storageApi.post(`/api/storage/validate/${subject}`, {
+      answers,
+    });
     return response.data;
   },
 
@@ -26,7 +28,7 @@ export const testService = {
     const response = await testApi.get(`/api/tests/result/${resultId}`);
     return response.data;
   },
-  
+
   getActiveTest: async (testId) => {
     try {
       const response = await testApi.get(`/api/tests/active/${testId}`);
@@ -35,62 +37,68 @@ export const testService = {
           testId: response.data.testId,
           subject: response.data.subject,
           remainingTime: response.data.remainingTime,
-          testTitle: response.data.subject + " Testi"
+          testTitle: response.data.subject + " Testi",
         },
         questions: response.data.questions,
-        answers: response.data.answers
+        answers: response.data.answers,
       };
     } catch (error) {
-      console.error('Aktif test alınırken hata oluştu:', error);
+      console.error("Aktif test alınırken hata oluştu:", error);
       throw error;
     }
   },
 
   startTest: async (subject) => {
     if (!subject) {
-      throw new Error('Subject parametresi eksik');
+      throw new Error("Subject parametresi eksik");
     }
     try {
       const response = await testApi.post(`/api/tests/start/${subject}`);
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Sunucu hatası');
+      throw new Error(error.response?.data?.message || "Sunucu hatası");
     }
   },
 
   saveAnswer: async (testId, questionId, answer) => {
     try {
-      await testApi.post(`/api/tests/answer/${testId}`, { 
-        questionId, 
-        answer: answer === null ? "" : answer 
+      await testApi.post(`/api/tests/answer/${testId}`, {
+        questionId,
+        answer: answer === null ? "" : answer,
       });
     } catch (error) {
-      console.error('Cevap kaydedilemedi:', error);
+      console.error("Cevap kaydedilemedi:", error);
       throw error;
     }
   },
 
   submitTest: async (testId, answers) => {
     try {
-      const response = await testApi.post(`/api/tests/complete/${testId}`, { 
-        answers 
+      const response = await testApi.post(`/api/tests/complete/${testId}`, {
+        answers,
       });
       return response.data;
     } catch (error) {
-      console.error('Test gönderilirken hata oluştu:', error);
+      console.error("Test gönderilirken hata oluştu:", error);
       throw error;
     }
   },
 
   getTestImage: async (imagePath) => {
     const response = await storageApi.get(`/api/storage/image/${imagePath}`, {
-      responseType: 'blob'
+      responseType: "blob",
     });
     return URL.createObjectURL(response.data);
   },
 
+  getImageUrlPath: (imageUrl) => {
+    // storageApi'nin baseURL'ini alalım
+    const baseUrl = storageApi.defaults.baseURL;
+    return `${baseUrl}${imageUrl}`;
+  },
+
   getTestHistory: async () => {
-    const response = await testApi.get('/api/tests/history');
+    const response = await testApi.get("/api/tests/history");
     return response.data;
-  }
+  },
 };

@@ -119,29 +119,6 @@ const TestResult = () => {
             </div>
           </div>
 
-          {/* Cevap şıkları - direkt arayüzde gözüken tablo içine eklenmiş hali */}
-          <div className="text-center mb-4">
-            <h5>Cevap Şıkları</h5>
-            <div className="d-flex justify-content-center gap-4 mt-3">
-              {["A", "B", "C", "D"].map((letter, idx) => (
-                <div key={idx} className="text-center">
-                  <div
-                    className="border rounded-circle d-flex justify-content-center align-items-center"
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      fontSize: "18px",
-                      fontWeight: "bold",
-                      margin: "0 auto",
-                    }}
-                  >
-                    {letter}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <div className="accordion" id="answersAccordion">
             <div className="accordion-item">
               <h2 className="accordion-header" id="headingOne">
