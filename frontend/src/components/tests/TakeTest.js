@@ -25,6 +25,10 @@ const TakeTest = () => {
       isSubmitting.current = true;
       setLoading(true);
       const result = await testService.submitTest(testId, answers);
+
+      // Test tamamlandığında localStorage'dan cevapları temizle
+      localStorage.removeItem(`test_answers_${testId}`);
+
       navigate(`/results/${result.resultId}`);
     } catch (err) {
       setError("Test gönderilirken bir hata oluştu");
@@ -36,17 +40,36 @@ const TakeTest = () => {
     }
   }, [testId, answers, navigate]);
 
-  // Fetch active test data
+  // Fetch active test data and restore answers
   useEffect(() => {
     const fetchActiveTest = async () => {
       try {
+        setLoading(true);
         const response = await testService.getActiveTest(testId);
         console.log("Fetched test data:", response);
         setActiveTest(response.activeTest);
         setQuestions(response.questions || []);
 
-        // Persist answers from server if available
-        setAnswers(response.answers || {});
+        // Sayfa yenilendiğinde cevapları geri yükle
+        const savedAnswers = localStorage.getItem(`test_answers_${testId}`);
+        if (savedAnswers) {
+          // Önce local storage'dan cevapları al
+          const parsedAnswers = JSON.parse(savedAnswers);
+          setAnswers(parsedAnswers);
+          console.log("Restored answers from localStorage:", parsedAnswers);
+        } else if (
+          response.answers &&
+          Object.keys(response.answers).length > 0
+        ) {
+          // Eğer local storage'da yoksa ve sunucudan gelen cevaplar varsa onları kullan
+          setAnswers(response.answers);
+          console.log("Using server answers:", response.answers);
+          // Sunucudan gelen cevapları local storage'a kaydet
+          localStorage.setItem(
+            `test_answers_${testId}`,
+            JSON.stringify(response.answers)
+          );
+        }
 
         setTimeLeft(response.activeTest.remainingTime || 0);
       } catch (err) {
@@ -88,6 +111,9 @@ const TakeTest = () => {
     const newAnswers = { ...answers, [questionId]: value };
     setAnswers(newAnswers);
 
+    // Cevapları localStorage'a kaydet
+    localStorage.setItem(`test_answers_${testId}`, JSON.stringify(newAnswers));
+
     try {
       await testService.saveAnswer(testId, questionId, value);
     } catch (err) {
@@ -103,7 +129,12 @@ const TakeTest = () => {
       return;
     }
 
-    setAnswers((prev) => ({ ...prev, [questionId]: null }));
+    const newAnswers = { ...answers, [questionId]: null };
+    setAnswers(newAnswers);
+
+    // Temizlenen cevabı localStorage'da da güncelle
+    localStorage.setItem(`test_answers_${testId}`, JSON.stringify(newAnswers));
+
     try {
       await testService.saveAnswer(testId, questionId, null);
     } catch (err) {
@@ -219,19 +250,35 @@ const TakeTest = () => {
         <div className="card-body">
           {currentQuestion.imageUrl && (
             <div className="text-center mb-4">
-              <img
-                src={getImageUrl(currentQuestion.imageUrl)}
-                alt={`Soru ${currentQuestionIndex + 1}`}
-                className="img-fluid"
-                style={{ maxHeight: "300px" }}
-                onError={(e) => {
-                  console.error(
-                    "Görsel yüklenemedi:",
-                    currentQuestion.imageUrl
-                  );
-                  e.target.src = "/default-image.jpg";
+              {/* Sabit boyutlu konteyner div */}
+              <div
+                className="image-container"
+                style={{
+                  height: "300px", // Sabit yükseklik
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden",
                 }}
-              />
+              >
+                <img
+                  src={getImageUrl(currentQuestion.imageUrl)}
+                  alt={`Soru ${currentQuestionIndex + 1}`}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "contain", // Görüntü oranını korur
+                  }}
+                  onError={(e) => {
+                    console.error(
+                      "Görsel yüklenemedi:",
+                      currentQuestion.imageUrl
+                    );
+                    e.target.src = "/default-image.jpg";
+                  }}
+                />
+              </div>
             </div>
           )}
           <p className="card-text">{currentQuestion.text}</p>
@@ -271,31 +318,34 @@ const TakeTest = () => {
               </div>
             </div>
 
-            <button
-              className="btn btn-outline-danger mt-3"
-              onClick={() => handleClearAnswer(currentQuestion.questionId)}
-            >
-              Temizle
-            </button>
+            {/* Üç buton yan yana ve ortalanmış */}
+            <div className="d-flex justify-content-center gap-3 mt-3">
+              <button
+                className="btn btn-secondary"
+                onClick={handlePrevQuestion}
+                disabled={currentQuestionIndex === 0}
+              >
+                Önceki Soru
+              </button>
+
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => handleClearAnswer(currentQuestion.questionId)}
+              >
+                Temizle
+              </button>
+
+              <button className="btn btn-primary" onClick={handleNextQuestion}>
+                {currentQuestionIndex < questions.length - 1
+                  ? "Sonraki Soru"
+                  : "Testi Bitir"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="d-flex justify-content-between">
-        <button
-          className="btn btn-secondary"
-          onClick={handlePrevQuestion}
-          disabled={currentQuestionIndex === 0}
-        >
-          Önceki Soru
-        </button>
-        <button className="btn btn-primary" onClick={handleNextQuestion}>
-          {currentQuestionIndex < questions.length - 1
-            ? "Sonraki Soru"
-            : "Testi Bitir"}
-        </button>
-      </div>
-
+      {/* Soru numaraları listesi en altta kalıyor */}
       <div className="mt-4">
         <div className="d-flex flex-wrap gap-2 justify-content-center">
           {questions.map((_, index) => (

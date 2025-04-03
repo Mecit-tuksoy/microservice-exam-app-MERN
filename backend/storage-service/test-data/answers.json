@@ -1,20 +1,70 @@
-[
-  {
-    "subject": "Elektrik",
-    "duration": 3,
-    "questions": {
-      "q1": 3,
-      "q2": 2,
-      "q3": 3
+{
+  "siniflar": [
+    {
+      "sinif": "5. SINIF",
+      "dersler": [
+        {
+          "ders": "Fen ve Teknoloji",
+          "konular": [
+            {
+              "konu": "Yönler",
+              "duration": 3,
+              "questions": {
+                "q1": 3,
+                "q2": 2,
+                "q3": 3
+              }
+            }
+          ]
+        },
+        {
+          "ders": "Matematik",
+          "konular": [
+            {
+              "konu": "Toplama",
+              "duration": 3,
+              "questions": {
+                "q1": 3,
+                "q2": 2,
+                "q3": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sinif": "6. SINIF",
+      "dersler": [
+        {
+          "ders": "Fen ve Teknoloji",
+          "konular": [
+            {
+              "konu": "Yönler",
+              "duration": 3,
+              "questions": {
+                "q1": 3,
+                "q2": 2,
+                "q3": 3
+              }
+            }
+          ]
+        },
+        {
+          "ders": "Matematik",
+          "konular": [
+            {
+              "konu": "Toplama",
+              "duration": 3,
+              "questions": {
+                "q1": 3,
+                "q2": 2,
+                "q3": 3
+              }
+            }
+          ]
+        }
+      ]
     }
-  },
-  {
-    "subject": "Yönler",
-    "duration": 3,
-    "questions": {
-      "q1": 3,
-      "q2": 2,
-      "q3": 3
-    }
-  }
-]
+  ]
+}

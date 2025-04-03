@@ -1,7 +1,7 @@
 // src/components/Home.js
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
@@ -11,14 +11,17 @@ const Home = () => {
       <div className="jumbotron">
         <h1 className="display-4">Online Test Platformuna Hoş Geldiniz!</h1>
         <p className="lead">
-          Bu platform, çeşitli konularda kendinizi test etmenize ve bilgilerinizi değerlendirmenize olanak tanır.
+          Bu platform, çeşitli konularda kendinizi test etmenize ve
+          bilgilerinizi değerlendirmenize olanak tanır.
         </p>
         <hr className="my-4" />
         <p>
-          Farklı zorluk seviyelerinde ve çeşitli konularda testler çözerek bilgilerinizi ölçebilirsiniz. Detaylı sonuç analizleri ile hangi konularda daha fazla çalışmanız gerektiğini görebilirsiniz.
+          Farklı zorluk seviyelerinde ve çeşitli konularda testler çözerek
+          bilgilerinizi ölçebilirsiniz. Detaylı sonuç analizleri ile hangi
+          konularda daha fazla çalışmanız gerektiğini görebilirsiniz.
         </p>
         {isAuthenticated() ? (
-          <Link to="/tests" className="btn btn-primary btn-lg">
+          <Link to="/classes" className="btn btn-primary btn-lg">
             Testleri Görüntüle
           </Link>
         ) : (

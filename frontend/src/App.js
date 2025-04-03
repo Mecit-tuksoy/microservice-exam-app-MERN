@@ -8,7 +8,9 @@ import Layout from "./components/layout/Layout";
 import Home from "./components/Home";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import TestList from "./components/tests/TestList";
+import ClassSelect from "./components/tests/ClassSelect";
+import CourseSelect from "./components/tests/CourseSelect";
+import TopicSelect from "./components/tests/TopicSelect";
 import TestDetail from "./components/tests/TestDetail";
 import TakeTest from "./components/tests/TakeTest";
 import TestResult from "./components/results/TestResult";
@@ -28,16 +30,17 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
+            {/* Yeni seçim ekranları */}
+            <Route path="/classes" element={<ClassSelect />} />
+            <Route path="/classes/:sinif/dersler" element={<CourseSelect />} />
             <Route
-              path="/tests"
-              element={
-                <ProtectedRoute>
-                  <TestList />
-                </ProtectedRoute>
-              }
+              path="/classes/:sinif/dersler/:ders/konular"
+              element={<TopicSelect />}
             />
+
+            {/* Test detay ve diğer test işlemleri */}
             <Route
-              path="/tests/:subject" // Test bilgilendirme ekranı
+              path="/tests/:sinif/:ders/:konu"
               element={
                 <ProtectedRoute>
                   <TestDetail />
@@ -45,7 +48,7 @@ const App = () => {
               }
             />
             <Route
-              path="/tests/active/:testId" // Test çözme ekranı
+              path="/tests/active/:testId"
               element={
                 <ProtectedRoute>
                   <TakeTest />

@@ -73,70 +73,76 @@ router.get("/available", authenticateToken, async (req, res) => {
 });
 
 // Yeni test başlat
-router.post("/start/:subject", authenticateToken, async (req, res) => {
-  try {
-    const { subject } = req.params;
+router.post(
+  "/start/:sinif/:ders/:konu",
+  authenticateToken,
+  async (req, res) => {
+    try {
+      const { sinif, ders, konu } = req.params;
+      // Karşılaştırma ve saklama kolaylığı için subject'i bu şekilde tanımlıyoruz
+      const subject = `${sinif}/${ders}/${konu}`;
 
-    // Kullanıcının aktif bir testi var mı kontrol et
-    const existingTest = await ActiveTest.findOne({
-      userId: req.user.id,
-      completed: false,
-    });
+      // Kullanıcının aktif bir testi var mı kontrol et
+      const existingTest = await ActiveTest.findOne({
+        userId: req.user.id,
+        completed: false,
+      });
 
-    if (existingTest) {
-      // Aynı konuysa, devam etsin
-      if (existingTest.subject === subject) {
-        const remainingTime = calculateRemainingTime(existingTest);
+      if (existingTest) {
+        // Aynı konuysa, devam etsin
+        if (existingTest.subject === subject) {
+          const remainingTime = calculateRemainingTime(existingTest);
 
-        // Storage Service'den test detaylarını al
-        const testResponse = await axios.get(
-          `${STORAGE_SERVICE_URL}/test/${subject}`
-        );
+          // Storage Service'den test detaylarını al
+          const testResponse = await axios.get(
+            `${STORAGE_SERVICE_URL}/test/${sinif}/${ders}/${konu}`
+          );
 
-        return res.json({
-          testId: existingTest._id,
-          subject,
-          duration: existingTest.duration,
-          remainingTime,
-          questions: testResponse.data.questions,
-          answers: Object.fromEntries(existingTest.answers) || {},
-        });
+          return res.json({
+            testId: existingTest._id,
+            subject,
+            duration: existingTest.duration,
+            remainingTime,
+            questions: testResponse.data.questions,
+            answers: Object.fromEntries(existingTest.answers) || {},
+          });
+        }
+
+        // Farklı bir konuysa, önceki testi tamamla
+        existingTest.completed = true;
+        await existingTest.save();
       }
 
-      // Farklı bir konuysa, önceki testi tamamla
-      existingTest.completed = true;
-      await existingTest.save();
+      // Storage Service'den test detaylarını al
+      const testResponse = await axios.get(
+        `${STORAGE_SERVICE_URL}/test/${sinif}/${ders}/${konu}`
+      );
+
+      // Yeni test oluştur
+      const newTest = new ActiveTest({
+        userId: req.user.id,
+        subject,
+        duration: testResponse.data.duration,
+        startTime: new Date(),
+        answers: {},
+        completed: false,
+      });
+
+      await newTest.save();
+
+      res.json({
+        testId: newTest._id,
+        subject,
+        duration: newTest.duration,
+        remainingTime: newTest.duration * 60, // dakikadan saniyeye çevirme
+        questions: testResponse.data.questions,
+        answers: {},
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Sunucu hatası", error: error.message });
     }
-
-    // Storage Service'den test detaylarını al
-    const testResponse = await axios.get(
-      `${STORAGE_SERVICE_URL}/test/${subject}`
-    );
-
-    // Yeni test oluştur
-    const newTest = new ActiveTest({
-      userId: req.user.id,
-      subject,
-      duration: testResponse.data.duration,
-      startTime: new Date(),
-      answers: {},
-      completed: false,
-    });
-
-    await newTest.save();
-
-    res.json({
-      testId: newTest._id,
-      subject,
-      duration: newTest.duration,
-      remainingTime: newTest.duration * 60, // dakikadan saniyeye çevirme
-      questions: testResponse.data.questions,
-      answers: {},
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Sunucu hatası", error: error.message });
   }
-});
+);
 
 // Test cevabını kaydet
 router.post("/answer/:testId", authenticateToken, async (req, res) => {

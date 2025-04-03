@@ -180,7 +180,7 @@ const TestResult = () => {
           </div>
 
           <div className="mt-4 d-flex justify-content-between">
-            <Link to="/tests" className="btn btn-primary">
+            <Link to="/classes" className="btn btn-primary">
               Tüm Testlere Dön
             </Link>
             <Link to="/results" className="btn btn-outline-primary">

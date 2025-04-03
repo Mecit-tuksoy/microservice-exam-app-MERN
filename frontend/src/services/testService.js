@@ -48,16 +48,11 @@ export const testService = {
     }
   },
 
-  startTest: async (subject) => {
-    if (!subject) {
-      throw new Error("Subject parametresi eksik");
-    }
-    try {
-      const response = await testApi.post(`/api/tests/start/${subject}`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || "Sunucu hatası");
-    }
+  startTest: async (sinif, ders, konu) => {
+    const response = await testApi.post(
+      `/api/tests/start/${sinif}/${ders}/${konu}`
+    );
+    return response.data;
   },
 
   saveAnswer: async (testId, questionId, answer) => {
@@ -99,6 +94,29 @@ export const testService = {
 
   getTestHistory: async () => {
     const response = await testApi.get("/api/tests/history");
+    return response.data;
+  },
+
+  getClasses: async () => {
+    const response = await storageApi.get("/api/storage/classes");
+    return response.data;
+  },
+  getCourses: async (sinif) => {
+    const response = await storageApi.get(
+      `/api/storage/classes/${sinif}/dersler`
+    );
+    return response.data;
+  },
+  getTopics: async (sinif, ders) => {
+    const response = await storageApi.get(
+      `/api/storage/classes/${sinif}/dersler/${ders}/konular`
+    );
+    return response.data;
+  },
+  getTopicTest: async (sinif, ders, konu) => {
+    const response = await storageApi.get(
+      `/api/storage/test/${sinif}/${ders}/${konu}`
+    );
     return response.data;
   },
 };
