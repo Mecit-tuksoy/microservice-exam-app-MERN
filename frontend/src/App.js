@@ -13,6 +13,7 @@ import CourseSelect from "./components/tests/CourseSelect";
 import TopicSelect from "./components/tests/TopicSelect";
 import TestDetail from "./components/tests/TestDetail";
 import TakeTest from "./components/tests/TakeTest";
+import TestSelector from "./components/tests/TestSelector";
 import TestResult from "./components/results/TestResult";
 import ResultsList from "./components/results/ResultsList";
 import NotFound from "./components/NotFound";
@@ -68,6 +69,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <TestResult />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/test-selector"
+              element={
+                <ProtectedRoute>
+                  <TestSelector />
                 </ProtectedRoute>
               }
             />

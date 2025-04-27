@@ -119,4 +119,21 @@ export const testService = {
     );
     return response.data;
   },
+
+  searchTests: async (searchTerm) => {
+    const response = await testApi.get(
+      `/api/tests/search?term=${encodeURIComponent(searchTerm)}`
+    );
+    return response.data;
+  },
+
+  getRecentTests: async (userId) => {
+    const response = await testApi.get(`/api/tests/recent/${userId}`);
+    return response.data;
+  },
+
+  getRecommendedTests: async (userId) => {
+    const response = await testApi.get(`/api/tests/recommended/${userId}`);
+    return response.data;
+  },
 };

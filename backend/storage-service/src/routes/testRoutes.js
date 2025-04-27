@@ -199,4 +199,34 @@ router.get("/images/:sinif/:ders/:konu/:file", async (req, res) => {
   }
 });
 
+router.get("/subjects", async (req, res) => {
+  try {
+    const siniflarDir = path.join(TEST_DATA_PATH, "siniflar");
+    const siniflar = await fs.readdir(siniflarDir, { withFileTypes: true });
+
+    const subjects = [];
+    for (const sinifEntry of siniflar.filter((d) => d.isDirectory())) {
+      const sinif = sinifEntry.name;
+      const derslerDir = path.join(siniflarDir, sinif);
+      const dersler = await fs.readdir(derslerDir, { withFileTypes: true });
+
+      for (const dersEntry of dersler.filter((d) => d.isDirectory())) {
+        const ders = dersEntry.name;
+        const konularDir = path.join(derslerDir, ders);
+        const konular = await fs.readdir(konularDir, { withFileTypes: true });
+
+        for (const konuEntry of konular.filter((d) => d.isDirectory())) {
+          const konu = konuEntry.name;
+          subjects.push({ sinif, ders, konu });
+        }
+      }
+    }
+
+    res.json(subjects);
+  } catch (error) {
+    console.error("Subjects endpoint hatası:", error);
+    res.status(500).json({ message: "Sunucu hatası", error: error.message });
+  }
+});
+
 module.exports = router;
