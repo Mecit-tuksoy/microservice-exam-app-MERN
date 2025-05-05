@@ -17,9 +17,12 @@ import TestSelector from "./components/tests/TestSelector";
 import TestResult from "./components/results/TestResult";
 import ResultsList from "./components/results/ResultsList";
 import NotFound from "./components/NotFound";
+import InteractiveContentsList from "./components/interactive/InteractiveContentsList";
+import InteractiveContentView from "./components/interactive/InteractiveContentView";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const App = () => {
   return (
@@ -79,6 +82,15 @@ const App = () => {
                   <TestSelector />
                 </ProtectedRoute>
               }
+            />
+            {/* Etkileşimli içerik rotaları */}
+            <Route
+              path="/interactive-contents"
+              element={<InteractiveContentsList />}
+            />
+            <Route
+              path="/interactive-contents/:contentId"
+              element={<InteractiveContentView />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

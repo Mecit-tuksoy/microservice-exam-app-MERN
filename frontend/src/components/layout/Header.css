@@ -27,7 +27,7 @@
   cursor: pointer;
 }
 
-.custom-nav-link:hover, 
+.custom-nav-link:hover,
 .custom-nav-link.active {
   background-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
@@ -80,6 +80,15 @@
   font-weight: 500;
   border: none;
   transition: all 0.2s;
+  margin: 0 4px;
+}
+
+.navbar-nav .nav-item {
+  margin: 0 4px;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }
 
 .custom-logout-btn:hover {
@@ -94,7 +103,7 @@
   .custom-nav-link {
     margin: 5px 0;
   }
-  
+
   .custom-dropdown-menu {
     position: static;
     margin-top: 0;
@@ -103,11 +112,11 @@
     border-radius: 0;
     background-color: rgba(255, 255, 255, 0.05);
   }
-  
+
   .custom-dropdown-item {
     color: white;
   }
-  
+
   .custom-dropdown-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: white;

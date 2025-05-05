@@ -1,0 +1,40 @@
+{
+  "contents": [
+    {
+      "id": "solar-system-gravity",
+      "title": "Güneş Sistemi Yerçekimi Simulasyonu",
+      "description": "Farklı gezegenlerde yerçekimi etkisini interaktif olarak öğrenin.",
+      "filename": "solar-system-gravity/index.html",
+      "category": "Fen Bilgisi",
+      "tags": ["yerçekimi", "güneş sistemi", "gezegenler", "fizik"],
+      "previewImage": "solar-system-gravity/preview.jpg",
+      "level": "Orta",
+      "author": "Mecit Hoca",
+      "dateAdded": "2025-04-28"
+    },
+    {
+      "id": "yer-kabugu-ve-dunyamizin-hareketleri",
+      "title": "Yer Kabuğu ve Dünyamızın Hareketleri",
+      "description": "Dünya'nın yapısını ve hareketlerini interaktif olarak keşfedin.",
+      "filename": "yer-kabugu-ve-dunyamizin-hareketleri/index.html",
+      "category": "Fen Bilgisi-4. Sınıf",
+      "tags": ["dünya", "yer kabuğu", "hareketler", "coğrafya"],
+      "previewImage": "yer-kabugu-ve-dunyamizin-hareketleri/preview.jpg",
+      "level": "Orta",
+      "author": "Mecit Hoca",
+      "dateAdded": "2025-04-28"
+    },
+    {
+      "id": "Güneş-Dünya-ve-Ay-Hareketleri",
+      "title": "Güneş, Dünya ve Ay'ın Hareketleri",
+      "description": "Güneş, Dünya ve Ay'ın Hareketlerini interaktif olarak keşfedin.",
+      "filename": "Güneş-Dünya-ve-Ay-Hareketleri/index.html",
+      "category": "Fen Bilgisi-4. Sınıf",
+      "tags": ["dünya", "güneş", "ay", "hareketler", "coğrafya"],
+      "previewImage": "Güneş-Dünya-ve-Ay-Hareketleri/preview.jpg",
+      "level": "orta",
+      "author": "Mecit Hoca",
+      "dateAdded": "2025-05-01"
+    }
+  ]
+}

@@ -1,0 +1,665 @@
+/* Genel Stiller */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f8ff;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+nav {
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav li {
+    margin: 5px 10px;
+}
+
+nav a {
+    color: #2a5298;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover, nav a.active {
+    background-color: #2a5298;
+    color: white;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+section.active {
+    display: block;
+}
+
+section h2 {
+    color: #1e3c72;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e6e6e6;
+}
+
+.content-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.info-box, .animation-box {
+    flex: 1;
+    min-width: 300px;
+}
+
+.info-box {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-left: 4px solid #1e3c72;
+    border-radius: 5px;
+}
+
+.info-box h3 {
+    color: #2a5298;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    margin-bottom: 10px;
+}
+
+.interactive-note {
+    background-color: #fffde7;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    border-left: 4px solid #ffc107;
+}
+
+.animation-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    min-height: 300px;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1e3c72;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-top: 30px;
+}
+
+/* Dünya'nın Dönme Hareketi Animasyonu */
+.earth-rotation-animation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.clock-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.clock {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: 5px solid #333;
+    position: relative;
+}
+
+.clock-numbers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.number {
+    position: absolute;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.number-12 {
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.number-3 {
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+}
+
+.number-6 {
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.number-9 {
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+}
+
+.hour-hand, .minute-hand {
+    position: absolute;
+    background-color: #333;
+    transform-origin: 50% 100%;
+    left: 50%;
+    border-radius: 5px;
+}
+
+.hour-hand {
+    width: 6px;
+    height: 40px;
+    top: 40px;
+    transform: translateX(-50%);
+}
+
+.minute-hand {
+    width: 4px;
+    height: 60px;
+    top: 20px;
+    transform: translateX(-50%);
+}
+
+.center-point {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #333;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.earth-rotation-arrow {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    border: 2px dashed #2a5298;
+    animation-name: rotateCounter;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-play-state: paused;
+}
+
+.earth-rotation-arrow::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid #2a5298;
+    transform: rotate(45deg);
+}
+
+.earth-container {
+    margin-left: 20px;
+}
+
+.earth {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #1a73e8, #34a853);
+    border-radius: 50%;
+    position: relative;
+    animation-name: rotateEarth;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-play-state: paused;
+}
+
+.earth-axis {
+    position: absolute;
+    width: 2px;
+    height: 150px;
+    background-color: #ff4081;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-23.5deg);
+    z-index: -1;
+}
+
+.earth-marker {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes rotateCounter {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes rotateEarth {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/* Dünya'nın Dolanma Hareketi Animasyonu */
+.earth-orbit-animation {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.sun {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(#ffea00, #ff9800);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px 5px rgba(255, 153, 0, 0.6);
+}
+
+.earth-orbit-path {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border: 2px dashed #aaa;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.earth-orbit {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: orbitEarth;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-play-state: paused;
+}
+
+.earth-small {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(135deg, #1a73e8, #34a853);
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes orbitEarth {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+/* Ay'ın Hareketleri Animasyonu */
+.moon-rotation-animation {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.earth-center {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #1a73e8, #34a853);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.moon-orbit-path {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: 2px dashed #aaa;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.moon-orbit {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: orbitMoon;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-play-state: paused;
+}
+
+.moon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.moon-face {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+}
+
+@keyframes orbitMoon {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+/* Gece-Gündüz Animasyonu */
+.day-night-animation {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #000;
+    margin: 0 auto;
+}
+
+.sun-light {
+    position: absolute;
+    width: 100px;
+    height: 200px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 0, 0.4));
+    left: 0;
+}
+
+.earth-day-night {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    animation-name: rotateDayNight;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-play-state: paused;
+}
+
+.day-side {
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    background-color: #1a73e8;
+    left: 0;
+}
+
+.night-side {
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    background-color: #263238;
+    right: 0;
+}
+
+@keyframes rotateDayNight {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+/* Güneş'in Görünen Hareketi Animasyonu */
+.sun-apparent-movement {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.sun-fixed {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(#ffea00, #ff9800);
+    border-radius: 50%;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+}
+
+.earth-observer {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    left: 60%;
+    transform: translateY(-50%);
+}
+
+.observer {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background-color: #1a73e8;
+    border-radius: 50% 50% 0 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: rotateObserver;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-play-state: paused;
+}
+
+.observer-view {
+    position: absolute;
+    width: 120px;
+    height: 80px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+}
+
+.sky {
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(#84b5ff, #bdd8ff);
+    top: 0;
+}
+
+.ground {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    background-color: #8bc34a;
+    bottom: 0;
+}
+
+.moving-sun {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(#ffea00, #ff9800);
+    border-radius: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    animation-name: moveSun;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-play-state: paused;
+}
+
+@keyframes rotateObserver {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes moveSun {
+    0% {
+        left: 10px;
+        top: 40px;
+    }
+    25% {
+        left: 40px;
+        top: 10px;
+    }
+    50% {
+        left: 80px;
+        top: 10px;
+    }
+    75% {
+        left: 120px;
+        top: 40px;
+    }
+    100% {
+        left: 10px;
+        top: 40px;
+    }
+}

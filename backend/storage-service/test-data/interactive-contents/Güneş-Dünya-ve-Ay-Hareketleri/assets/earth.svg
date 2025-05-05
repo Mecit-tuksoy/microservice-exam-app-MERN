@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="earthGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#4286f4"/>
+      <stop offset="70%" style="stop-color:#1a56c9"/>
+      <stop offset="100%" style="stop-color:#0a3380"/>
+    </radialGradient>
+    <radialGradient id="landGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#78e08f"/>
+      <stop offset="100%" style="stop-color:#38ada9"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Dünya gövdesi -->
+  <circle cx="100" cy="100" r="80" fill="url(#earthGradient)"/>
+  
+  <!-- Kıtalar (basitleştirilmiş) -->
+  <path d="M60,40 C80,35 90,50 100,45 C110,40 130,45 140,65 C150,85 130,90 120,100 C110,110 130,120 120,130 C110,140 90,130 80,140 C70,150 50,140 40,120 C30,100 40,45 60,40" fill="url(#landGradient)" opacity="0.8"/>
+  <path d="M170,70 C180,80 175,100 160,110 C145,120 155,130 150,150 C145,170 130,160 120,150 C110,140 120,130 130,120 C140,110 150,90 170,70" fill="url(#landGradient)" opacity="0.8"/>
+  
+  <!-- Eksen Çizgisi -->
+  <line x1="100" y1="10" x2="100" y2="190" stroke="#ff4081" stroke-width="2" stroke-dasharray="5,3" transform="rotate(-23.5, 100, 100)"/>
+  
+  <!-- Kuzey ve Güney Kutupları -->
+  <circle cx="100" cy="33" r="5" fill="#ffffff" opacity="0.8" transform="rotate(-23.5, 100, 100)"/>
+  <circle cx="100" cy="167" r="5" fill="#ffffff" opacity="0.8" transform="rotate(-23.5, 100, 100)"/>
+</svg>

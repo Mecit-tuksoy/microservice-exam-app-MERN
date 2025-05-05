@@ -5,6 +5,10 @@ const path = require("path");
 
 // Test-data klasör yolu
 const TEST_DATA_PATH = path.join(__dirname, "../../test-data");
+const INTERACTIVE_CONTENTS_PATH = path.join(
+  TEST_DATA_PATH,
+  "interactive-contents"
+);
 
 // Tüm sınıfları getir
 router.get("/classes", async (req, res) => {
@@ -225,6 +229,76 @@ router.get("/subjects", async (req, res) => {
     res.json(subjects);
   } catch (error) {
     console.error("Subjects endpoint hatası:", error);
+    res.status(500).json({ message: "Sunucu hatası", error: error.message });
+  }
+});
+
+// Etkileşimli içeriklerin listesini getir
+router.get("/interactive-contents", async (req, res) => {
+  try {
+    const contentsPath = path.join(INTERACTIVE_CONTENTS_PATH, "contents.json");
+    const contentsData = await fs.readFile(contentsPath, "utf8");
+    const contentsJson = JSON.parse(contentsData);
+
+    // Her içerik için erişim URL'sini ve önizleme resmi URL'sini ekleyin
+    const contentsWithUrls = contentsJson.contents.map((content) => ({
+      ...content,
+      contentUrl: `/api/storage/interactive-contents/${content.id}`,
+      previewImageUrl: content.previewImage
+        ? `/api/storage/interactive-contents/${content.previewImage}`
+        : null,
+    }));
+
+    console.log(
+      "Generated URLs:",
+      contentsWithUrls.map((c) => c.previewImageUrl)
+    );
+
+    res.json({ contents: contentsWithUrls });
+  } catch (error) {
+    console.error("Interactive contents endpoint hatası:", error);
+    res.status(500).json({ message: "Sunucu hatası", error: error.message });
+  }
+});
+
+// Önizleme resimlerini servis et (yeni yol önerisi kullanılmıyor - static middleware ile sağlanıyor)
+// Bu kod artık kullanılmayacak, ancak referans için tutuluyor
+router.get("/interactive-contents/images/:filename", async (req, res) => {
+  try {
+    const { filename } = req.params;
+    const imagePath = path.join(INTERACTIVE_CONTENTS_PATH, filename);
+    console.log(
+      `Deprecated route - Should use static middleware. Path: ${imagePath}`
+    );
+
+    // Redirect to the correct path
+    res.redirect(`/api/storage/interactive-contents/${filename}`);
+  } catch (error) {
+    console.error("Interactive content image endpoint hatası:", error);
+    res.status(500).json({ message: "Sunucu hatası", error: error.message });
+  }
+});
+
+// Belirli bir etkileşimli içeriği getir
+router.get("/interactive-contents/:contentId", async (req, res) => {
+  try {
+    const { contentId } = req.params;
+    const contentsPath = path.join(INTERACTIVE_CONTENTS_PATH, "contents.json");
+    const contentsData = await fs.readFile(contentsPath, "utf8");
+    const contentsJson = JSON.parse(contentsData);
+
+    // İstenilen içeriği bul
+    const content = contentsJson.contents.find((item) => item.id === contentId);
+
+    if (!content) {
+      return res.status(404).json({ message: "İçerik bulunamadı" });
+    }
+
+    // İçeriğin HTML dosyasını oku ve gönder
+    const htmlPath = path.join(INTERACTIVE_CONTENTS_PATH, content.filename);
+    res.sendFile(htmlPath);
+  } catch (error) {
+    console.error("Interactive content endpoint hatası:", error);
     res.status(500).json({ message: "Sunucu hatası", error: error.message });
   }
 });

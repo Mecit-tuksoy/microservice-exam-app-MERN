@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Güneş, Dünya ve Ay Hareketleri</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Güneş, Dünya ve Ay'ın Hareketleri</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="#dunya-donme" class="active">Dünya'nın Dönme Hareketi</a>
+        </li>
+        <li><a href="#dunya-dolanma">Dünya'nın Dolanma Hareketi</a></li>
+        <li><a href="#ay-hareketleri">Ay'ın Hareketleri</a></li>
+        <li><a href="#gece-gunduz">Gece-Gündüz Oluşumu</a></li>
+        <li><a href="#gunes-hareketi">Güneş'in Görünen Hareketi</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section id="dunya-donme" class="active">
+        <h2>Dünya'nın Dönme Hareketi</h2>
+        <div class="content-container">
+          <div class="info-box">
+            <h3>Dünya'nın Kendi Ekseni Etrafında Dönmesi</h3>
+            <p>
+              Dünya kendi ekseni etrafında
+              <strong>saatin dönme yönüne ters yönde</strong> döner. Bu hareket
+              <strong>24 saatte</strong> bir tamamlanır.
+            </p>
+            <p>Dünya'nın dönme yönünü saat üzerinde gösterelim:</p>
+            <div class="interactive-note">
+              <p>
+                Sağdaki "Başlat" butonuna tıklayarak Dünya'nın dönme yönünü
+                görebilirsiniz!
+              </p>
+            </div>
+          </div>
+          <div class="animation-box">
+            <div class="earth-rotation-animation">
+              <div class="clock-container">
+                <div class="clock">
+                  <div class="hour-hand"></div>
+                  <div class="minute-hand"></div>
+                  <div class="center-point"></div>
+                  <div class="earth-rotation-arrow"></div>
+                </div>
+                <div class="clock-numbers">
+                  <span class="number number-12">12</span>
+                  <span class="number number-3">3</span>
+                  <span class="number number-6">6</span>
+                  <span class="number number-9">9</span>
+                </div>
+              </div>
+              <div class="earth-container">
+                <div class="earth">
+                  <div class="earth-axis"></div>
+                  <div class="earth-marker"></div>
+                </div>
+              </div>
+            </div>
+            <div class="controls">
+              <button id="start-earth-rotation">Başlat</button>
+              <button id="stop-earth-rotation">Durdur</button>
+              <button id="reset-earth-rotation">Sıfırla</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dunya-dolanma">
+        <h2>Dünya'nın Dolanma Hareketi</h2>
+        <div class="content-container">
+          <div class="info-box">
+            <h3>Dünya'nın Güneş Etrafında Dolanması</h3>
+            <p>
+              Dünya, Güneş'in etrafında
+              <strong>saatin dönme yönüne ters yönde</strong> dolanır.
+            </p>
+            <p>
+              Bu hareket yaklaşık <strong>365 gün 6 saatte</strong> (bir yılda)
+              tamamlanır.
+            </p>
+            <div class="interactive-note">
+              <p>
+                Sağdaki "Başlat" butonuna tıklayarak Dünya'nın Güneş etrafındaki
+                dolanma hareketini izleyebilirsiniz!
+              </p>
+            </div>
+          </div>
+          <div class="animation-box">
+            <div class="earth-orbit-animation">
+              <div class="sun"></div>
+              <div class="earth-orbit-path"></div>
+              <div class="earth-orbit">
+                <div class="earth-small"></div>
+              </div>
+            </div>
+            <div class="controls">
+              <button id="start-earth-orbit">Başlat</button>
+              <button id="stop-earth-orbit">Durdur</button>
+              <button id="reset-earth-orbit">Sıfırla</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ay-hareketleri">
+        <h2>Ay'ın Hareketleri</h2>
+        <div class="content-container">
+          <div class="info-box">
+            <h3>Ay'ın Hep Aynı Yüzünü Görmemizin Nedeni</h3>
+            <p>
+              Dünya'dan baktığımızda Ay'ın hep aynı yüzünü görürüz. Bunun
+              nedeni, Ay'ın kendi ekseni etrafında dönme süresi ile Dünya
+              etrafında dolanma süresinin aynı olmasıdır.
+            </p>
+            <p>Bu olaya <strong>"bağlı dönme"</strong> denir.</p>
+            <div class="interactive-note">
+              <p>
+                Sağdaki "Başlat" butonuna tıklayarak Ay'ın bağlı dönme
+                hareketini görebilirsiniz!
+              </p>
+            </div>
+          </div>
+          <div class="animation-box">
+            <div class="moon-rotation-animation">
+              <div class="earth-center"></div>
+              <div class="moon-orbit-path"></div>
+              <div class="moon-orbit">
+                <div class="moon">
+                  <div class="moon-face"></div>
+                </div>
+              </div>
+            </div>
+            <div class="controls">
+              <button id="start-moon-animation">Başlat</button>
+              <button id="stop-moon-animation">Durdur</button>
+              <button id="reset-moon-animation">Sıfırla</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gece-gunduz">
+        <h2>Gece-Gündüz Oluşumu</h2>
+        <div class="content-container">
+          <div class="info-box">
+            <h3>Dünya'da Gece ve Gündüzün Oluşması</h3>
+            <p>
+              Dünya'nın kendi ekseni etrafında dönmesi sonucunda gece ve gündüz
+              oluşur.
+            </p>
+            <p>
+              Güneş'e dönük olan taraf <strong>gündüz</strong>, Güneş'e dönük
+              olmayan taraf ise <strong>gece</strong> yaşar.
+            </p>
+            <div class="interactive-note">
+              <p>
+                Sağdaki "Başlat" butonuna tıklayarak gece-gündüz oluşumunu
+                görebilirsiniz!
+              </p>
+            </div>
+          </div>
+          <div class="animation-box">
+            <div class="day-night-animation">
+              <div class="sun-light"></div>
+              <div class="earth-day-night">
+                <div class="day-side"></div>
+                <div class="night-side"></div>
+              </div>
+            </div>
+            <div class="controls">
+              <button id="start-day-night">Başlat</button>
+              <button id="stop-day-night">Durdur</button>
+              <button id="reset-day-night">Sıfırla</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gunes-hareketi">
+        <h2>Güneş'in Görünen Hareketi</h2>
+        <div class="content-container">
+          <div class="info-box">
+            <h3>Güneş'in Gökyüzünde Hareket Ediyormuş Gibi Görünmesi</h3>
+            <p>
+              Sabah Güneş'in doğduğunu, öğlen tepeye çıktığını, akşam ise
+              battığını görürüz. Aslında Güneş yerinde sabit durmaktadır!
+            </p>
+            <p>
+              Bu görüntünün sebebi, Dünya'nın kendi ekseni etrafında dönmesidir.
+            </p>
+            <div class="interactive-note">
+              <p>
+                Sağdaki "Başlat" butonuna tıklayarak bu olayı görebilirsiniz!
+              </p>
+            </div>
+          </div>
+          <div class="animation-box">
+            <div class="sun-apparent-movement">
+              <div class="sun-fixed"></div>
+              <div class="earth-observer">
+                <div class="observer"></div>
+                <div class="observer-view">
+                  <div class="sky">
+                    <div class="moving-sun"></div>
+                  </div>
+                  <div class="ground"></div>
+                </div>
+              </div>
+            </div>
+            <div class="controls">
+              <button id="start-sun-movement">Başlat</button>
+              <button id="stop-sun-movement">Durdur</button>
+              <button id="reset-sun-movement">Sıfırla</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Bu eğitim materyali <strong>Mecit Hoca</strong> tarafından
+        hazırlanmıştır.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

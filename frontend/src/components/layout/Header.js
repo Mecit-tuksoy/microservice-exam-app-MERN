@@ -11,6 +11,7 @@ const Header = () => {
   const [classes, setClasses] = useState([]);
   const [showClassDropdown, setShowClassDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const [isMouseInDropdown, setIsMouseInDropdown] = useState(false);
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -27,6 +28,7 @@ const Header = () => {
     }
   }, [currentUser]);
 
+  // Mouse tıklaması ile dropdown'ın dışına tıklandığında kapanması için
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -39,6 +41,19 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Mouse hareketi takibi için
+  useEffect(() => {
+    if (!isMouseInDropdown) {
+      const timer = setTimeout(() => {
+        if (!isMouseInDropdown) {
+          setShowClassDropdown(false);
+        }
+      }, 300); // Biraz gecikme ile kapatma işlemi
+
+      return () => clearTimeout(timer);
+    }
+  }, [isMouseInDropdown]);
 
   const handleLogout = () => {
     logout();
@@ -53,9 +68,12 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary custom-navbar shadow">
       <div className="container">
-        <Link className="navbar-brand fw-bold" to="/">
-          <i className="fas fa-book-open me-2"></i>
-          Test Uygulaması
+        <Link
+          className="btn btn-light btn-sm rounded-pill custom-logout-btn"
+          to="/"
+        >
+          <i className="fas fa-book-open me-1"></i>
+          <span>Test Uygulaması</span>
         </Link>
         <button
           className="navbar-toggler"
@@ -66,18 +84,27 @@ const Header = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto">
+          {/* Sol taraftaki menü öğeleri */}
+          <ul className="navbar-nav">
             {currentUser && (
               <>
-                <li className="nav-item dropdown" ref={dropdownRef}>
+                <li
+                  className="nav-item dropdown"
+                  ref={dropdownRef}
+                  onMouseEnter={() => {
+                    setIsMouseInDropdown(true);
+                    setShowClassDropdown(true);
+                  }}
+                  onMouseLeave={() => {
+                    setIsMouseInDropdown(false);
+                  }}
+                >
                   <div
-                    className={`nav-link custom-nav-link ${showClassDropdown ? 'active' : ''}`}
-                    onMouseEnter={() => setShowClassDropdown(true)}
+                    className="btn btn-light btn-sm rounded-pill custom-logout-btn dropdown-toggle"
                     onClick={() => setShowClassDropdown(!showClassDropdown)}
                   >
                     <i className="fas fa-chalkboard me-1"></i>
                     <span>Sınıflar</span>
-                    <i className={`fas fa-chevron-${showClassDropdown ? 'up' : 'down'} ms-1 small`}></i>
                   </div>
                   {showClassDropdown && (
                     <div className="custom-dropdown-menu shadow">
@@ -94,7 +121,11 @@ const Header = () => {
                         ))
                       ) : (
                         <div className="dropdown-item">
-                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          <span
+                            className="spinner-border spinner-border-sm me-2"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
                           Yükleniyor...
                         </div>
                       )}
@@ -102,24 +133,38 @@ const Header = () => {
                   )}
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link custom-nav-link" to="/results">
+                  <Link
+                    className="btn btn-light btn-sm rounded-pill custom-logout-btn"
+                    to="/results"
+                  >
                     <i className="fas fa-chart-bar me-1"></i>
                     <span>Sonuçlarım</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className="btn btn-light btn-sm rounded-pill custom-logout-btn"
+                    to="/interactive-contents"
+                  >
+                    <i className="fas fa-brain me-1"></i>
+                    <span>Etkileşimli Öğrenme Ortamı</span>
                   </Link>
                 </li>
               </>
             )}
           </ul>
-          <ul className="navbar-nav">
+
+          {/* Sağ taraftaki menü öğeleri */}
+          <ul className="navbar-nav ms-auto">
             {currentUser ? (
               <>
                 <li className="nav-item">
-                  <span className="nav-link custom-nav-link">
+                  <span className="btn btn-light btn-sm rounded-pill custom-logout-btn">
                     <i className="fas fa-user-circle me-1"></i>
-                    Merhaba, {currentUser.username}
+                    <span>Merhaba, {currentUser.username}</span>
                   </span>
                 </li>
-                <li className="nav-item ms-2">
+                <li className="nav-item">
                   <button
                     className="btn btn-light btn-sm rounded-pill custom-logout-btn"
                     onClick={handleLogout}
@@ -132,15 +177,21 @@ const Header = () => {
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link custom-nav-link" to="/login">
+                  <Link
+                    className="btn btn-light btn-sm rounded-pill custom-logout-btn"
+                    to="/login"
+                  >
                     <i className="fas fa-sign-in-alt me-1"></i>
-                    Giriş
+                    <span>Giriş</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link custom-nav-link" to="/register">
+                  <Link
+                    className="btn btn-light btn-sm rounded-pill custom-logout-btn"
+                    to="/register"
+                  >
                     <i className="fas fa-user-plus me-1"></i>
-                    Kayıt Ol
+                    <span>Kayıt Ol</span>
                   </Link>
                 </li>
               </>

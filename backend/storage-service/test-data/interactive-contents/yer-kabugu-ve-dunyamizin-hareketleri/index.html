@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dünya'mız ve Hareketleri</title>
+    <style>
+      body {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #4b92db;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        border-bottom: 5px solid #3270b4;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .section {
+        background-color: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #2c5697;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        border-bottom: 3px solid #ffcc00;
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+
+      p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+      }
+
+      .image-container {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      img {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 2px;
+        cursor: pointer;
+        border-radius: 25px;
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #45a049;
+      }
+
+      .tabs {
+        display: flex;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        border-radius: 10px 10px 0 0;
+      }
+
+      .tabs button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+        flex: 1;
+      }
+
+      .tabs button:hover {
+        background-color: #ddd;
+      }
+
+      .tabs button.active {
+        background-color: #4b92db;
+        color: white;
+      }
+
+      .tabcontent {
+        display: none;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        animation: fadeEffect 1s;
+        background-color: white;
+      }
+
+      @keyframes fadeEffect {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .card {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .interactive {
+        margin: 30px 0;
+        text-align: center;
+      }
+
+      #sunEarthContainer {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
+      }
+
+      #sun {
+        position: absolute;
+        top: 125px;
+        left: 125px;
+        width: 50px;
+        height: 50px;
+        background-color: #ffcc00;
+        border-radius: 50%;
+        box-shadow: 0 0 25px #ffcc00;
+        z-index: 1;
+      }
+
+      #earthOrbit {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        width: 250px;
+        height: 250px;
+        border: 1px dashed #aaa;
+        border-radius: 50%;
+      }
+
+      #earth {
+        position: absolute;
+        top: 0;
+        left: 125px;
+        width: 30px;
+        height: 30px;
+        background-color: #4b92db;
+        border-radius: 50%;
+        transform-origin: 0 125px;
+      }
+
+      .day-night-container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 50%;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .earth-rotate {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, #001f3f 50%, #f9f9f9 50%);
+        border-radius: 50%;
+      }
+
+      #rockInfo {
+        display: none;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .mini-quiz {
+        background-color: #e9f7fe;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 30px 0;
+      }
+
+      .quiz-question {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .quiz-options {
+        margin-bottom: 15px;
+      }
+
+      .quiz-option {
+        display: block;
+        margin: 5px 0;
+        padding: 10px;
+        background-color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .quiz-option:hover {
+        background-color: #eee;
+      }
+
+      .quiz-result {
+        font-weight: bold;
+        color: green;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Dünya'mız ve Hareketleri</h1>
+    </header>
+
+    <div class="container">
+      <div class="section">
+        <h2>Hoş Geldin, Küçük Kaşif!</h2>
+        <p>
+          Merhaba sevgili öğrenci! Bugün seninle Dünya'mızın sırlarını
+          keşfetmeye çıkacağız. Dünya'nın üzerinde durduğumuz kara tabakası
+          nasıl oluşmuş, içinde neler var, Dünya nasıl hareket ediyor ve bu
+          hareketler bizim hayatımızı nasıl etkiliyor, hepsini öğreneceğiz!
+        </p>
+
+        <div class="image-container">
+          <img src="images/dunya.jpg" alt="Dünya" />
+        </div>
+
+        <div class="tabs">
+          <button
+            class="tablinks"
+            onclick="openTab(event, 'Kayaclar')"
+            id="defaultOpen"
+          >
+            Kayaçlar
+          </button>
+          <button class="tablinks" onclick="openTab(event, 'Fosiller')">
+            Fosiller
+          </button>
+          <button class="tablinks" onclick="openTab(event, 'DunyaHareketleri')">
+            Dünya'nın Hareketleri
+          </button>
+        </div>
+
+        <div id="Kayaclar" class="tabcontent">
+          <h3>Dünya'nın Yapı Taşları: Kayaçlar</h3>
+          <p>
+            Sevgili öğrenci, üzerinde durduğumuz toprak ve taşlar, yani yer
+            kabuğu, <strong>kayaçlardan</strong> oluşur. Kayaçlar, Dünya'mızın
+            yapı taşlarıdır.
+          </p>
+
+          <div class="image-container">
+            <img src="images/kayaç.jpg" alt="Kayaçlar" />
+          </div>
+
+          <p>
+            Kayaçlar çok önemlidir çünkü madenleri içlerinde barındırırlar.
+            Madenler ise günlük hayatta kullandığımız birçok eşyanın ham
+            maddesidir.
+          </p>
+
+          <h3>Türkiye'nin Değerli Kayaçları ve Madenleri</h3>
+
+          <div class="grid">
+            <div class="card" onclick="showRockInfo('altin')">
+              <h3>Altın</h3>
+              <div class="image-container">
+                <img src="images/altın.jpg" alt="Altın" />
+              </div>
+              <p>Tıkla ve Öğren!</p>
+            </div>
+
+            <div class="card" onclick="showRockInfo('bor')">
+              <h3>Bor</h3>
+              <div class="image-container">
+                <img src="images/bor.jpg" alt="Bor" />
+              </div>
+              <p>Tıkla ve Öğren!</p>
+            </div>
+
+            <div class="card" onclick="showRockInfo('mermer')">
+              <h3>Mermer</h3>
+              <div class="image-container">
+                <img src="images/mermer.jpg" alt="Mermer" />
+              </div>
+              <p>Tıkla ve Öğren!</p>
+            </div>
+
+            <div class="card" onclick="showRockInfo('linyit')">
+              <h3>Linyit</h3>
+              <div class="image-container">
+                <img src="images/linyit.jpg" alt="Linyit" />
+              </div>
+              <p>Tıkla ve Öğren!</p>
+            </div>
+
+            <div class="card" onclick="showRockInfo('bakir')">
+              <h3>Bakır</h3>
+              <div class="image-container">
+                <img src="images/bakır.jpg" alt="Bakır" />
+              </div>
+              <p>Tıkla ve Öğren!</p>
+            </div>
+
+            <div class="card" onclick="showRockInfo('taskomuru')">
+              <h3>Taşkömürü</h3>
+              <div class="image-container">
+                <img src="images/taşkömürü.jpg" alt="Taşkömürü" />
+              </div>
+              <p>Tıkla ve Öğren!</p>
+            </div>
+          </div>
+
+          <div id="rockInfo"></div>
+
+          <div class="mini-quiz">
+            <div class="quiz-question">
+              Soru: Evlerimizin zemininde, mutfak tezgahlarında kullanılan kayaç
+              hangisidir?
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="checkAnswer('mermer', this)">
+                Mermer
+              </div>
+              <div class="quiz-option" onclick="checkAnswer('linyit', this)">
+                Linyit
+              </div>
+              <div class="quiz-option" onclick="checkAnswer('bakir', this)">
+                Bakır
+              </div>
+            </div>
+            <div class="quiz-result" id="rockQuizResult"></div>
+          </div>
+        </div>
+
+        <div id="Fosiller" class="tabcontent">
+          <h3>Geçmişten İzler: Fosiller</h3>
+          <p>
+            Fosiller, çok uzun zaman önce yaşamış canlıların kalıntılarıdır. Bir
+            canlı öldükten sonra, yumuşak kısımları yok olur. Ama sert kısımları
+            (kemikler, kabuklar, dişler) toprağa gömülür ve zamanla taşlaşır.
+            İşte bu taşlaşmış kalıntılara <strong>fosil</strong> denir.
+          </p>
+
+          <div class="image-container">
+            <img src="images/fosilörneği.jpg" alt="Fosil Örneği" />
+          </div>
+
+          <h3>Fosiller Nasıl Oluşur?</h3>
+
+          <div class="grid">
+            <div class="card">
+              <h3>1. Adım</h3>
+              <div class="image-container">
+                <img src="images/fosiloluşum1.jpg" alt="Fosil Oluşum 1" />
+              </div>
+              <p>Bir canlı ölür ve yumuşak kısımları zamanla yok olur.</p>
+            </div>
+
+            <div class="card">
+              <h3>2. Adım</h3>
+              <div class="image-container">
+                <img src="images/fosiloluşum2.jpg" alt="Fosil Oluşum 2" />
+              </div>
+              <p>
+                Canlının sert kısımları (kemik, diş, kabuk vb.) toprağa gömülür.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>3. Adım</h3>
+              <div class="image-container">
+                <img src="images/fosiloluşum3.jpg" alt="Fosil Oluşum 3" />
+              </div>
+              <p>
+                Üzerine çöken toprak ve kayaçlar zamanla katmanlar oluşturur.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>4. Adım</h3>
+              <div class="image-container">
+                <img src="images/fosiloluşum4.jpg" alt="Fosil Oluşum 4" />
+              </div>
+              <p>
+                Milyonlarca yıl boyunca, mineraller canlı kalıntılarının yerine
+                geçer ve taşlaşırlar.
+              </p>
+            </div>
+          </div>
+
+          <div class="mini-quiz">
+            <div class="quiz-question">Soru: Fosiller ne işe yarar?</div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="checkAnswer('geçmiş', this)">
+                Geçmişteki canlıları tanımamıza yardımcı olur
+              </div>
+              <div
+                class="quiz-option"
+                onclick="checkAnswer('dekorasyon', this)"
+              >
+                Sadece dekorasyon için kullanılır
+              </div>
+              <div class="quiz-option" onclick="checkAnswer('besin', this)">
+                Besin kaynağıdır
+              </div>
+            </div>
+            <div class="quiz-result" id="fossilQuizResult"></div>
+          </div>
+        </div>
+
+        <div id="DunyaHareketleri" class="tabcontent">
+          <h3>Dünya'mızın Hareketleri</h3>
+          <p>
+            Dünya'mız durmaksızın hareket ediyor! İki önemli hareketi vardır:
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h3>1. Dönme Hareketi</h3>
+              <div class="image-container">
+                <img src="images/dönmehareketi.jpg" alt="Dönme Hareketi" />
+              </div>
+              <p>
+                Dünya kendi etrafında döner. Bu harekete
+                <strong>dönme hareketi</strong> denir.
+              </p>
+              <p>
+                Bu hareket <strong>24 saatte</strong> tamamlanır ve
+                <strong>gece ile gündüzün</strong> oluşmasını sağlar.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>2. Dolanma Hareketi</h3>
+              <div class="image-container">
+                <img src="images/dolanmahareketi.jpg" alt="Dolanma Hareketi" />
+              </div>
+              <p>
+                Dünya Güneş'in etrafında döner. Bu harekete
+                <strong>dolanma hareketi</strong> denir.
+              </p>
+              <p>
+                Bu hareket <strong>365 gün 6 saatte</strong> tamamlanır ve
+                <strong>bir yıl</strong> sürer.
+              </p>
+            </div>
+          </div>
+
+          <h3>Gece-Gündüz Nasıl Oluşur?</h3>
+          <p>
+            Dünya kendi etrafında dönerken, bir yarısı Güneş'e dönüktür ve o
+            yarıda <strong>gündüz</strong> olur. Diğer yarısı ise Güneş'e dönük
+            değildir ve orada <strong>gece</strong> olur.
+          </p>
+
+          <div class="interactive">
+            <div class="day-night-container">
+              <div class="earth-rotate" id="earthDayNight"></div>
+            </div>
+            <button class="button" onclick="animateDayNight()">
+              Gece-Gündüz Oluşumunu İzle</button
+            >"
+          </div>
+
+          <h3>Güneş'in Etrafında Dolanma</h3>
+          <p>
+            Dünya Güneş'in etrafında dolanır. Bu hareket bir yıl sürer ve
+            mevsimlerin oluşmasını sağlar.
+          </p>
+
+          <div class="interactive">
+            <div id="sunEarthContainer">
+              <div id="sun"></div>
+              <div id="earthOrbit"></div>
+              <div id="earth"></div>
+            </div>
+            <button class="button" onclick="animateEarth()">
+              Dünya'nın Güneş Etrafında Dolanmasını İzle
+            </button>
+          </div>
+
+          <div class="mini-quiz">
+            <div class="quiz-question">
+              Soru: Dünya'nın kendi etrafında dönmesi ne kadar sürer?
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="checkAnswer('24saat', this)">
+                24 saat (1 gün)
+              </div>
+              <div class="quiz-option" onclick="checkAnswer('365gun', this)">
+                365 gün (1 yıl)
+              </div>
+              <div class="quiz-option" onclick="checkAnswer('30gun', this)">
+                30 gün (1 ay)
+              </div>
+            </div>
+            <div class="quiz-result" id="earthQuizResult"></div>
+          </div>
+
+          <div class="mini-quiz">
+            <div class="quiz-question">
+              Soru: Dünya'nın Güneş etrafında dolanması sonucu ne oluşur?
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="checkAnswer('mevsimler', this)">
+                Mevsimler
+              </div>
+              <div
+                class="quiz-option"
+                onclick="checkAnswer('gecegunduz', this)"
+              >
+                Gece ve gündüz
+              </div>
+              <div class="quiz-option" onclick="checkAnswer('yagmur', this)">
+                Yağmur ve kar
+              </div>
+            </div>
+            <div class="quiz-result" id="seasonQuizResult"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Öğrendiklerimizi Hatırlayalım</h2>
+        <p>
+          Aferin! Bugün birlikte Dünya'mızı keşfettik. Öğrendiklerimizi
+          hatırlayalım:
+        </p>
+        <ul>
+          <li>Yer kabuğu kayaçlardan oluşur.</li>
+          <li>
+            Kayaçlar madenleri içerir ve bunlar hayatımızda çok önemlidir.
+          </li>
+          <li>
+            Fosiller, geçmişte yaşamış canlıların taşlaşmış kalıntılarıdır.
+          </li>
+          <li>Dünya'nın iki hareketi vardır: dönme ve dolanma.</li>
+          <li>
+            Dünya'nın kendi etrafında dönmesi sonucu gece ve gündüz oluşur.
+          </li>
+          <li>Dünya'nın Güneş etrafında dolanması bir yıl sürer.</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        Bu eğitim materyali <strong>Mecit Hoca</strong> tarafından
+        hazırlanmıştır.
+      </p>
+    </footer>
+
+    <script>
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+
+      function showRockInfo(rock) {
+        var infoDiv = document.getElementById("rockInfo");
+        infoDiv.style.display = "block";
+
+        switch (rock) {
+          case "altin":
+            infoDiv.innerHTML =
+              "<h3>Altın</h3><p>Altın değerli bir madendir ve genellikle takı yapımında kullanılır. Türkiye'de Artvin, Balıkesir, İzmir, Manisa ve Uşak'ta bulunur.</p>";
+            break;
+          case "bor":
+            infoDiv.innerHTML =
+              "<h3>Bor</h3><p>Bor madeni cam, seramik, temizlik maddeleri ve ilaç yapımında kullanılır. Türkiye dünyanın en büyük bor rezervlerine sahiptir. Eskişehir, Kütahya ve Balıkesir'de çıkarılır.</p>";
+            break;
+          case "mermer":
+            infoDiv.innerHTML =
+              "<h3>Mermer</h3><p>Mermer, evlerin zeminlerinde, mutfak tezgahlarında ve süs eşyası yapımında kullanılır. Afyon, Bilecik, Burdur ve Muğla'da çıkarılır.</p>";
+            break;
+          case "linyit":
+            infoDiv.innerHTML =
+              "<h3>Linyit</h3><p>Linyit bir tür kömürdür ve ısınma ve elektrik üretimi için kullanılır. Afşin-Elbistan, Soma, Tunçbilek ve Seyitömer'de bulunur.</p>";
+            break;
+          case "bakir":
+            infoDiv.innerHTML =
+              "<h3>Bakır</h3><p>Bakır, elektrik telleri, su boruları ve mutfak eşyaları yapımında kullanılır. Türkiye'de Artvin, Kastamonu, Elazığ ve Siirt'te çıkarılır.</p>";
+            break;
+          case "taskomuru":
+            infoDiv.innerHTML =
+              "<h3>Taşkömürü</h3><p>Taşkömürü ısınma ve elektrik üretiminde kullanılır. Türkiye'de en çok Zonguldak'ta çıkarılır.</p>";
+            break;
+          default:
+            infoDiv.innerHTML =
+              "<h3>Bilgi</h3><p>Lütfen bir maden seçiniz.</p>";
+        }
+      }
+
+      function checkAnswer(answer, element) {
+        var result;
+        switch (answer) {
+          case "mermer":
+            result = document.getElementById("rockQuizResult");
+            result.style.display = "block";
+            result.style.color = "green";
+            result.innerHTML =
+              "Doğru! Mermer, evlerimizin zemininde ve mutfak tezgahlarında kullanılır.";
+            break;
+          case "linyit":
+          case "bakir":
+            result = document.getElementById("rockQuizResult");
+            result.style.display = "block";
+            result.style.color = "red";
+            result.innerHTML = "Yanlış. Tekrar dene!";
+            break;
+          case "geçmiş":
+            result = document.getElementById("fossilQuizResult");
+            result.style.display = "block";
+            result.style.color = "green";
+            result.innerHTML =
+              "Doğru! Fosiller, geçmişte yaşamış canlılar hakkında bilgi edinmemizi sağlar.";
+            break;
+          case "dekorasyon":
+          case "besin":
+            result = document.getElementById("fossilQuizResult");
+            result.style.display = "block";
+            result.style.color = "red";
+            result.innerHTML = "Yanlış. Tekrar dene!";
+            break;
+          case "24saat":
+            result = document.getElementById("earthQuizResult");
+            result.style.display = "block";
+            result.style.color = "green";
+            result.innerHTML =
+              "Doğru! Dünya'nın kendi etrafında dönmesi 24 saat sürer ve bir gün oluşur.";
+            break;
+          case "365gun":
+          case "30gun":
+            result = document.getElementById("earthQuizResult");
+            result.style.display = "block";
+            result.style.color = "red";
+            result.innerHTML = "Yanlış. Tekrar dene!";
+            break;
+          case "mevsimler":
+            result = document.getElementById("seasonQuizResult");
+            result.style.display = "block";
+            result.style.color = "green";
+            result.innerHTML =
+              "Doğru! Dünya'nın Güneş etrafında dolanması sonucu mevsimler oluşur.";
+            break;
+          case "gecegunduz":
+          case "yagmur":
+            result = document.getElementById("seasonQuizResult");
+            result.style.display = "block";
+            result.style.color = "red";
+            result.innerHTML = "Yanlış. Tekrar dene!";
+            break;
+        }
+      }
+
+      function animateEarth() {
+        var earth = document.getElementById("earth");
+        var rotation = 0;
+        var speed = 2;
+
+        var animation = setInterval(function () {
+          rotation += speed;
+          earth.style.transform =
+            "rotate(" + rotation + "deg) translateX(125px)";
+
+          if (rotation >= 360) {
+            clearInterval(animation);
+          }
+        }, 50);
+      }
+
+      function animateDayNight() {
+        var earth = document.getElementById("earthDayNight");
+        var rotation = 0;
+        var speed = 2;
+
+        var animation = setInterval(function () {
+          rotation += speed;
+          earth.style.transform = "rotate(" + rotation + "deg)";
+
+          if (rotation >= 360) {
+            clearInterval(animation);
+          }
+        }, 50);
+      }
+    </script>
+  </body>
+</html>
