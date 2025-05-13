@@ -381,12 +381,10 @@ router.get("/search", authenticateToken, async (req, res) => {
     res.json(searchResults);
   } catch (error) {
     console.error("Arama sırasında hata:", error);
-    res
-      .status(500)
-      .json({
-        message: "Arama sırasında bir hata oluştu",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Arama sırasında bir hata oluştu",
+      error: error.message,
+    });
   }
 });
 
@@ -424,12 +422,10 @@ router.get("/recent/:userId", authenticateToken, async (req, res) => {
     res.json(recentTests);
   } catch (error) {
     console.error("Son testler alınırken hata:", error);
-    res
-      .status(500)
-      .json({
-        message: "Son testler alınırken bir hata oluştu",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Son testler alınırken bir hata oluştu",
+      error: error.message,
+    });
   }
 });
 
@@ -527,12 +523,10 @@ router.get("/recommended/:userId", authenticateToken, async (req, res) => {
     res.json(recommendedTests);
   } catch (error) {
     console.error("Önerilen testler alınırken hata:", error);
-    res
-      .status(500)
-      .json({
-        message: "Önerilen testler alınırken bir hata oluştu",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Önerilen testler alınırken bir hata oluştu",
+      error: error.message,
+    });
   }
 });
 

@@ -3,10 +3,10 @@ import axios from "axios";
 
 // API URL'leri
 const API_URLS = {
-  AUTH: "http://localhost:3001",
-  TEST: "http://localhost:3004",
-  STORAGE: "http://localhost:3003",
-  ANALYTICS: "http://localhost:3002",
+  AUTH: process.env.REACT_APP_AUTH_URL || "",
+  TEST: process.env.REACT_APP_TEST_URL || "",
+  STORAGE: process.env.REACT_APP_STORAGE_URL || "",
+  ANALYTICS: process.env.REACT_APP_ANALYTICS_URL || "",
 };
 
 // API isteklerini yapmak için axios instance'ları

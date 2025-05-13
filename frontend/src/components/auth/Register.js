@@ -27,13 +27,13 @@ const Register = () => {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      // console.log('Form gönderiliyor:', values);
+      console.log("Form gönderiliyor:", values);
       const { confirmPassword, ...userData } = values;
-      // const result = await register(userData);
-      // // console.log('Kayıt başarılı:', result);
+      const result = await register(userData);
+      console.log("Kayıt başarılı:", result);
       navigate("/login");
     } catch (err) {
-      // console.error('Kayıt hatası:', err);
+      console.error("Kayıt hatası:", err);
       setError(err.response?.data?.message || "Kayıt olurken bir hata oluştu");
     } finally {
       setSubmitting(false);
