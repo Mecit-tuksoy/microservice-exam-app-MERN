@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: storage-service
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+  template:
+    metadata:
+      labels:
+        name: storage-service
+    spec:
+      containers:
+        - image: test-app-storage-service:latest
+          imagePullPolicy: IfNotPresent
+          name: storage-service
+          ports:
+            - containerPort: 3003
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+          # readinessProbe:
+          #   httpGet:
+          #     path: /api/storage/health
+          #     port: 3003
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 10
+          #   timeoutSeconds: 5
+          #   failureThreshold: 3
+
+          volumeMounts:
+            - mountPath: /usr/src/app/test-data
+              name: storage-service-claim
+
+      restartPolicy: Always
+      volumes:
+        - name: storage-service-claim
+          persistentVolumeClaim:
+            claimName: storage-service-claim0

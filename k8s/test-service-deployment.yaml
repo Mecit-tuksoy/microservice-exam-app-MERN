@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: test-service
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+  template:
+    metadata:
+      labels:
+        name: test-service
+    spec:
+      containers:
+        - env:
+            - name: ANALYTICS_SERVICE_URL
+              value: http://analytics-service:3002/api/analytics
+            - name: MONGO_URI
+              value: mongodb://mongodb:27017/tests
+            - name: STORAGE_SERVICE_URL
+              value: http://storage-service:3003/api/storage
+          image: test-app-test-service:latest
+          imagePullPolicy: IfNotPresent
+          name: test-service
+          ports:
+            - containerPort: 3004
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+          # readinessProbe:
+          #   httpGet:
+          #     path: /api/tests/health
+          #     port: 3004
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 10
+          #   timeoutSeconds: 5
+          #   failureThreshold: 3
+
+      restartPolicy: Always
