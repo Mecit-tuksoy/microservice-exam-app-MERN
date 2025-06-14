@@ -2,85 +2,44 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: microservice-exam-app-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   rules:
-  - host: exam-app.local
-    http:
-      paths:
-      - path: /api/auth/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: auth-service
-            port:
-              number: 3001
-      - path: /api/analytics/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: analytics-service
-            port:
-              number: 3002
-      - path: /api/storage/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: storage-service
-            port:
-              number: 3003
-      - path: /api/tests/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: test-service
-            port:
-              number: 3004
-      - path: /(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend
-            port:
-              number: 4000
-  # Localhost için alternatif erişim
-  - http:
-      paths:
-      - path: /api/auth/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: auth-service
-            port:
-              number: 3001
-      - path: /api/analytics/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: analytics-service
-            port:
-              number: 3002
-      - path: /api/storage/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: storage-service
-            port:
-              number: 3003
-      - path: /api/tests/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: test-service
-            port:
-              number: 3004
-      - path: /(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend
-            port:
-              number: 4000
+    - host: myapp.local
+      http:
+        paths:
+          - path: /api/auth
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: 3001
+          - path: /api/analytics
+            pathType: Prefix
+            backend:
+              service:
+                name: analytics-service
+                port:
+                  number: 3002
+          - path: /api/storage
+            pathType: Prefix
+            backend:
+              service:
+                name: storage-service
+                port:
+                  number: 3003
+          - path: /api/tests
+            pathType: Prefix
+            backend:
+              service:
+                name: test-service
+                port:
+                  number: 3004
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80

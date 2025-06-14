@@ -19,12 +19,14 @@ spec:
       labels:
         name: frontend
     spec:
+      securityContext:
+        runAsUser: 0
       containers:
         - image: test-app-frontend:latest
           imagePullPolicy: IfNotPresent
           name: frontend
           ports:
-            - containerPort: 4000
+            - containerPort: 80
 
           resources:
             requests:

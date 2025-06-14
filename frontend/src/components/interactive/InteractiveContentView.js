@@ -57,9 +57,7 @@ const InteractiveContentView = () => {
 
   // content.contentUrl: "/api/storage/interactive-contents/:id"
   // Prefix with storageApi.baseURL (e.g. "http://localhost:3003") to form full URL
-  const iframeSrc = content.contentUrl.startsWith("http")
-    ? content.contentUrl
-    : `${storageApi.defaults.baseURL}${content.contentUrl}`;
+  const iframeSrc = content.contentUrl;
 
   return (
     <div className="container mt-4">

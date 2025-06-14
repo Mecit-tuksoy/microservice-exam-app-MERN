@@ -3,10 +3,10 @@ import axios from "axios";
 
 // API URL'leri
 const API_URLS = {
-  AUTH: process.env.REACT_APP_AUTH_URL || "",
-  TEST: process.env.REACT_APP_TEST_URL || "",
-  STORAGE: process.env.REACT_APP_STORAGE_URL || "",
-  ANALYTICS: process.env.REACT_APP_ANALYTICS_URL || "",
+  AUTH: process.env.REACT_APP_AUTH_URL,
+  TEST: process.env.REACT_APP_TEST_URL,
+  STORAGE: process.env.REACT_APP_STORAGE_URL,
+  ANALYTICS: process.env.REACT_APP_ANALYTICS_URL,
 };
 
 // API isteklerini yapmak için axios instance'ları

@@ -5,7 +5,7 @@ const analyticsService = {
   // Ziyaretçi sayısını artır
   incrementVisitor: async () => {
     try {
-      const response = await analyticsApi.post("/api/analytics/visitor");
+      const response = await analyticsApi.post("/visitor");
       return response.data;
     } catch (error) {
       console.error("Ziyaretçi artırma hatası:", error);
@@ -16,7 +16,7 @@ const analyticsService = {
   // Ziyaretçi istatistiklerini getir
   getVisitorStats: async () => {
     try {
-      const response = await analyticsApi.get("/api/analytics/visitors");
+      const response = await analyticsApi.get("/visitors");
       return response.data;
     } catch (error) {
       console.error("Ziyaretçi istatistikleri getirme hatası:", error);

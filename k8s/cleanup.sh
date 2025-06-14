@@ -20,7 +20,8 @@ kubectl delete service auth-service analytics-service storage-service test-servi
 kubectl delete statefulset mongodb
 
 # PersistentVolumeClaims sil
-kubectl delete pvc storage-service-claim0 mongodb-data-0
+kubectl delete pvc mongodb-data mongodb-data-mongodb-0 storage-volume
+kubectl delete pv storage-service-pv mongodb-pv 
 
 echo "=============================="
 echo "Kubernetes kaynakları başarıyla temizlendi!"

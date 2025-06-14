@@ -50,4 +50,4 @@ spec:
       volumes:
         - name: storage-service-claim
           persistentVolumeClaim:
-            claimName: storage-service-claim0
+            claimName: storage-volume

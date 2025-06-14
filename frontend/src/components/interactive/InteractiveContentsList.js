@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { interactiveService } from "../../services/interactiveService";
-import { storageApi } from "../../services/api";
 
 const InteractiveContentsList = () => {
   const [contents, setContents] = useState([]);
@@ -81,7 +80,8 @@ const InteractiveContentsList = () => {
                       {content.previewImageUrl ? (
                         <>
                           <img
-                            src={`${storageApi.defaults.baseURL}${content.previewImageUrl}`}
+                            // artık storageApi.defaults.baseURL eklemeden direkt URL olarak kullanıyoruz
+                            src={content.previewImageUrl}
                             alt={content.title}
                             style={{
                               width: "100%",

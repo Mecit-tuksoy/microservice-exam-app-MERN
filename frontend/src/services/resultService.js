@@ -1,4 +1,4 @@
-import { testApi } from './api';
+import { testApi } from "./api";
 
 export const resultService = {
   getResultById: async (resultId) => {
@@ -7,17 +7,17 @@ export const resultService = {
       const response = await testApi.get(`/api/tests/result/${resultId}`);
       return response.data;
     } catch (error) {
-      console.error('Sonuç alınırken hata oluştu:', error);
+      console.error("Sonuç alınırken hata oluştu:", error);
       throw error;
     }
   },
 
   getUserResults: async () => {
     try {
-      const response = await testApi.get('/api/tests/history');
+      const response = await testApi.get("/api/tests/history");
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Sonuçlar alınamadı');
+      throw new Error(error.response?.data?.message || "Sonuçlar alınamadı");
     }
-  }
+  },
 };

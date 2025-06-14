@@ -4,8 +4,8 @@ metadata:
   name: analytics-service
 spec:
   type: ClusterIP
+  selector:
+    name: analytics-service
   ports:
     - port: 3002
       targetPort: 3002
-  selector:
-    name: analytics-service
